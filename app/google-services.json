@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "754439392808",
+    "firebase_url": "https://bagisampah-e8011.firebaseio.com",
+    "project_id": "bagisampah-e8011",
+    "storage_bucket": "bagisampah-e8011.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754439392808:android:185925f6192690953b6f1d",
+        "android_client_info": {
+          "package_name": "com.example.bagisampah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "754439392808-pkq1ug8c78pkg4iav8larvvockasna0e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bagisampah",
+            "certificate_hash": "7e62b22075bf828ed15ddb3d4e3d10873d1d55b9"
+          }
+        },
+        {
+          "client_id": "754439392808-oho8fsaae023imhnv934veb9e6vd1prm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnzB84uZZgLPjY4AR4yFcdY1bOiTsB9DI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "754439392808-oho8fsaae023imhnv934veb9e6vd1prm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
