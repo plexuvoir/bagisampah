@@ -63,12 +63,6 @@
                 android:entries="@array/kategori_array"
                 />
 
-<!--            <EditText-->
-<!--                android:id="@+id/kategoriSampah"-->
-<!--                android:layout_marginVertical="5dp"-->
-<!--                android:layout_marginHorizontal="5dp"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="45dp" />-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

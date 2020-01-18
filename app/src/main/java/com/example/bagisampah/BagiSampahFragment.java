@@ -65,7 +65,6 @@ public class BagiSampahFragment extends Fragment {
         final View inflate =inflater.inflate(R.layout.fragment_bagi_sampah,null);
         namaSampah = inflate.findViewById(R.id.namaSampah);
         deskripsiSampah = inflate.findViewById(R.id.deskripsiSampah);
-        //kategoriSampah = inflate.findViewById(R.id.kategoriSampah);
         spinnerKategori = inflate.findViewById(R.id.spinnerKategori);
         alamatSampah = inflate.findViewById(R.id.alamatSampah);
         hargaSampah = inflate.findViewById(R.id.hargaSampah);
@@ -105,40 +104,13 @@ public class BagiSampahFragment extends Fragment {
             }
         });
 
+
+
         btn_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 uploadImage();
-                String imgString = imgLink;
-                String namaSampahString = namaSampah.getText().toString();
-                Log.d("nss", namaSampahString);
-                String deskripsiSampahString = deskripsiSampah.getText().toString();
-                String kategoriSampahString = spinnerKategori.getSelectedItem().toString();
-                String latlocSampahString = "Latloc Sampah 0";
-                String longlocSampahString = "Longloc Sampah 0";
-                String hargaSampahString = hargaSampah.getText().toString();
-                String statusSampahString = "Available";
-                String jarakSampahString = "Jarak Sampah 0";
-                String userString = auth.getCurrentUser().getUid();
-                Log.d("user", userString);
-                String alamatSampahString = alamatSampah.getText().toString();
-                HashMap<String, Object> dataMap = new HashMap<String, Object>();
-                dataMap.put("img", imgString);
-                dataMap.put("namaSampah", namaSampahString);
-                dataMap.put("deskripsiSampah", deskripsiSampahString);
-                dataMap.put("kategoriSampah", kategoriSampahString);
-                dataMap.put("latlocSampah", latlocSampahString);
-                dataMap.put("longlocSampah", longlocSampahString);
-                dataMap.put("hargaSampah", hargaSampahString);
-                dataMap.put("statusSampah", statusSampahString);
-                dataMap.put("jarakSampah", jarakSampahString);
-                dataMap.put("user", userString);
-                dataMap.put("alamatSampah", alamatSampahString);
-                dataMap.put("namaUser", namaUserString);
-                dataMap.put("nomorTelepon", nomorTeleponString);
-                Log.d("nts", nomorTeleponString);
-                mDatabase.child("DBSampah").push().setValue(dataMap);
-                Log.d("testcuy", "onClick: test");
+
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
@@ -185,24 +157,46 @@ public class BagiSampahFragment extends Fragment {
                         @Override
                         public void onSuccess(Uri uri)
                         {
-                            String linklink = uri.toString();
-                            imgLink = linklink;
-                            Log.d("TAG", "onComplete: Url: "+ uri.toString());
+                            imgLink = uri.toString();
+                            uploadData();
                         }
 
                     });
                 }
             });
 
-
-//            ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Uri> task) {
-//                    Uri imgUrl = task.getResult();
-//                    imgLink = imgUrl.toString();
-//                }
-//            });
-
         }
     }
+
+    private void uploadData(){
+        String imgString = imgLink;
+        String namaSampahString = namaSampah.getText().toString();
+        String deskripsiSampahString = deskripsiSampah.getText().toString();
+        String kategoriSampahString = spinnerKategori.getSelectedItem().toString();
+        String latlocSampahString = "Latloc Sampah 0";
+        String longlocSampahString = "Longloc Sampah 0";
+        String hargaSampahString = hargaSampah.getText().toString();
+        String statusSampahString = "Available";
+        String jarakSampahString = "Jarak Sampah 0";
+        String userString = auth.getCurrentUser().getUid();
+        Log.d("user", userString);
+        String alamatSampahString = alamatSampah.getText().toString();
+        HashMap<String, Object> dataMap = new HashMap<String, Object>();
+        dataMap.put("img", imgString);
+        dataMap.put("namaSampah", namaSampahString);
+        dataMap.put("deskripsiSampah", deskripsiSampahString);
+        dataMap.put("kategoriSampah", kategoriSampahString);
+        dataMap.put("latlocSampah", latlocSampahString);
+        dataMap.put("longlocSampah", longlocSampahString);
+        dataMap.put("hargaSampah", hargaSampahString);
+        dataMap.put("statusSampah", statusSampahString);
+        dataMap.put("jarakSampah", jarakSampahString);
+        dataMap.put("user", userString);
+        dataMap.put("alamatSampah", alamatSampahString);
+        dataMap.put("namaUser", namaUserString);
+        dataMap.put("nomorTelepon", nomorTeleponString);
+        mDatabase.child("DBSampah").push().setValue(dataMap);
+    }
+
+
 }
