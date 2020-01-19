@@ -22,6 +22,11 @@ public class DetailSampah extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_sampah);
+
+
+        getSupportActionBar().setTitle("Detail Sampah");
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
         imgSampah = findViewById(R.id.img_sampah);
         namaSampah = findViewById(R.id.txt_nama_sampah);
         deskripsiSampah = findViewById(R.id.txt_deskripsi_sampah);
