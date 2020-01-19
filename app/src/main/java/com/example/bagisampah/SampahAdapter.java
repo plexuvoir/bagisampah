@@ -1,5 +1,7 @@
 package com.example.bagisampah;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder>{
     private Context context;
@@ -38,6 +42,24 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
         holder.harga.setText(listSampah.getHarga());
         holder.jarak.setText(listSampah.getJarak());
         Picasso.get().load(listSampah.getImg()).into(holder.imgSampah);
+
+        holder.card_sampah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d(TAG, "onClick: terklik");
+                Log.d(TAG, "onClick: "+ listSampah.getNama());
+                Intent intent = new Intent(v.getContext(), DetailSampah.class);
+                intent.putExtra("imgSampah",listSampah.getImg());
+                intent.putExtra("namaSampah",listSampah.getNama());
+                intent.putExtra("deskripsiSampah",listSampah.getDeskripsi());
+                intent.putExtra("hargaSampah",listSampah.getHarga());
+                intent.putExtra("namaUser",listSampah.getNamaUser());
+                intent.putExtra("kontakUser",listSampah.getNomorTelepon());
+                intent.putExtra("alamatUser",listSampah.getAlamat());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
