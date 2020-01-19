@@ -25,7 +25,7 @@ public class DetailSampah extends AppCompatActivity {
         imgSampah = findViewById(R.id.img_sampah);
         namaSampah = findViewById(R.id.txt_nama_sampah);
         deskripsiSampah = findViewById(R.id.txt_deskripsi_sampah);
-        hargaSampah = findViewById(R.id.txt_deskripsi_sampah);
+        hargaSampah = findViewById(R.id.txt_harga);
         namaUser = findViewById(R.id.txt_nama_user);
         kontakUser = findViewById(R.id.txt_kontak_user);
         alamatUser = findViewById(R.id.txt_alamat_user);
