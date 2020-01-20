@@ -12,14 +12,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingHorizontal="14dp">
             <ImageView
                 android:id="@+id/img_sampah"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:scaleType="centerCrop"
                 android:layout_margin="5dp"/>
             <TextView
                 android:id="@+id/txt_nama_sampah"
+                android:textColor="#212121"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ini nama sampah"
@@ -27,6 +31,7 @@
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/txt_deskripsi_sampah"
+                android:textColor="#212121"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="detail sampah"
@@ -38,6 +43,7 @@
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="70dp"
+                    android:textColor="#212121"
                     android:layout_height="wrap_content"
                     android:text="Harga"
                     android:textSize="25dp"
@@ -45,10 +51,11 @@
                     />
                 <TextView
                     android:id="@+id/txt_harga"
+                    android:textColor="#212121"
                     android:layout_marginHorizontal="15dp"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Harga"
+                    android:text="harga"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     />
@@ -57,9 +64,11 @@
                 android:layout_marginTop="35dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                >
                 <TextView
                     android:layout_width="80dp"
+                    android:textColor="#212121"
                     android:layout_height="wrap_content"
                     android:text="Nama:"
                     android:textSize="20dp"
@@ -67,8 +76,9 @@
                     />
                 <TextView
                     android:id="@+id/txt_nama_user"
+                    android:textColor="#212121"
                     android:layout_marginHorizontal="5dp"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="nama"
                     android:textSize="20dp"
@@ -81,6 +91,7 @@
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="80dp"
+                    android:textColor="#212121"
                     android:layout_height="wrap_content"
                     android:text="Kontak:"
                     android:textSize="20dp"
@@ -88,8 +99,9 @@
                     />
                 <TextView
                     android:id="@+id/txt_kontak_user"
+                    android:textColor="#212121"
                     android:layout_marginHorizontal="5dp"
-                    android:layout_width="70dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="kontak"
                     android:textSize="20dp"
@@ -102,6 +114,7 @@
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="80dp"
+                    android:textColor="#212121"
                     android:layout_height="wrap_content"
                     android:text="Alamat:"
                     android:textSize="20dp"
@@ -110,7 +123,8 @@
                 <TextView
                     android:id="@+id/txt_alamat_user"
                     android:layout_marginHorizontal="5dp"
-                    android:layout_width="70dp"
+                    android:textColor="#212121"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="alamat"
                     android:textSize="20dp"
@@ -119,17 +133,27 @@
             </LinearLayout>
             <Button
                 android:id="@+id/btn_Whatsapp"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
+                android:background="@drawable/round_button_green"
                 android:layout_marginVertical="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Hubungi via WA"
+                android:textAllCaps="false"
+
                 />
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:src="@color/colorPrimary"/>
+                android:src="@drawable/deletedummymap"
+                android:scaleType="centerCrop"
+                />
             <Button
                 android:layout_marginVertical="15dp"
+                android:background="@drawable/round_button"
+                android:textColor="#ffffff"
+                android:textSize="18sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ambil"

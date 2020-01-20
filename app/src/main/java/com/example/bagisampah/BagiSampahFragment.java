@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -100,7 +101,17 @@ public class BagiSampahFragment extends Fragment {
         imgUploadSampah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        imgUploadSampah.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    }
+                },1000);
+
                 chooseImage();
+
             }
         });
 
@@ -124,6 +135,7 @@ public class BagiSampahFragment extends Fragment {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
     }
 
     @Override
