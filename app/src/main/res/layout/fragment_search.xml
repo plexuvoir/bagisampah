@@ -1,16 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <android.support.v7.widget.RecyclerView
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            app:tabMode="scrollable"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="15dp"
-            android:id="@+id/recycler_sampah">
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            android:background="#00B0FF"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="#E0E0E0"
+            >
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tabSemua"
+                android:text="SEMUA"
+                />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tabPlastik"
+                android:text="PLASTIK"
+                />
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tabKertas"
+                android:text="KERTAS"
+                />
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tabTekstil"
+                android:text="TEKSTIL"
+                />
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tabKaleng"
+                android:text="KALENG"
+                />
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tabKaca"
+                android:text="KACA"
+                />
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
 
     </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.example.bagisampah;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -42,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();
     }
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -50,6 +50,12 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()){
                 case R.id.nav_cari_sampah:
                     selectedFragment = new SearchFragment();
+                    Intent intent = getIntent();
+                    overridePendingTransition(0, 0);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    finish();
+                    overridePendingTransition(0, 0);
+                    startActivity(intent);
                     break;
                 case R.id.nav_terbooking:
                     selectedFragment = new TerbookingFragment();
@@ -69,4 +75,5 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+
 }

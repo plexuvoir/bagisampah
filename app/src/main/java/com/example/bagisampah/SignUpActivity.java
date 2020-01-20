@@ -57,7 +57,10 @@ public class SignUpActivity extends AppCompatActivity {
                             dataMap.put("nomorHP", nomorHPString);
                             mDatabase.child("Users").child(auth.getCurrentUser().getUid().toString()).setValue(dataMap);
                             Toast.makeText(SignUpActivity.this, "Akun berhasil dibuat, silakan sign in", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
                             finish();
                         }
                     });

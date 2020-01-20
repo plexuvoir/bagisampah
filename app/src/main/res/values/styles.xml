@@ -6,10 +6,12 @@
         <item name="colorPrimary">#00B0FF</item>
         <item name="colorPrimaryDark">#4788C7</item>
         <item name="colorAccent">#FAFAFA</item>
+
     </style>
 
     <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
         <item name="android:textSize">10sp</item>
     </style>
+
 
 </resources>
