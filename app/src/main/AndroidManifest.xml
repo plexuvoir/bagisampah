@@ -14,8 +14,12 @@
         android:theme="@style/AppTheme">
         <activity android:name=".DetailSampah"
             android:parentActivityName=".MainActivity"></activity>
-        <activity android:name=".SignUpActivity"/>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".SignUpActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            />
+        <activity android:name=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

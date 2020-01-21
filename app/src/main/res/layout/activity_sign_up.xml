@@ -23,6 +23,7 @@
                 android:layout_marginBottom="15dp"
                 android:scaleType="fitEnd"
                 android:src="@drawable/selamatdatang" />
+
             <EditText
                 android:hint="Nama"
                 android:gravity="center"
@@ -73,13 +74,15 @@
                 android:layout_height="60dp"
                 android:inputType="textEmailAddress"
                 android:layout_marginVertical="10dp"/>
+
             <Button
                 android:id="@+id/btn_daftar"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginHorizontal="40dp"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/round_button"
                 android:text="DAFTAR"
                 android:textColor="#FFFFFF"
