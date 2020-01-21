@@ -40,6 +40,7 @@ public class DetailSampah extends AppCompatActivity {
         btnWhatsapp = findViewById(R.id.btn_Whatsapp);
 
 
+
         Bundle extras = getIntent().getExtras();
 
         if (extras != null){
@@ -55,7 +56,7 @@ public class DetailSampah extends AppCompatActivity {
         Picasso.get().load(eimgSampah).into(imgSampah);
         namaSampah.setText(enamaSampah);
         deskripsiSampah.setText(edeskripsiSampah);
-        hargaSampah.setText(ehargaSampah);
+        hargaSampah.setText("Rp."+ehargaSampah);
         namaUser.setText(enamaUser);
         kontakUser.setText(ekontakUser);
         alamatUser.setText(ealamatUser);

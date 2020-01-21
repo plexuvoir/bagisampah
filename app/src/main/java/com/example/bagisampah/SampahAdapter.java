@@ -39,7 +39,7 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
         List_Sampah listSampah = listSampahs.get(position);
         holder.nama.setText(listSampah.getNama());
         holder.deskripsi.setText(listSampah.getDeskripsi());
-        holder.harga.setText(listSampah.getHarga());
+        holder.harga.setText("Rp."+listSampah.getHarga());
         holder.jarak.setText(listSampah.getJarak());
         Picasso.get().load(listSampah.getImg()).into(holder.imgSampah);
 
