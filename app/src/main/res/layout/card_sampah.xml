@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:textColor="#212121"
             android:text="Nama Sampah"
+            android:textStyle="bold"
             android:textSize="20sp"
             android:id="@+id/nama"/>
         <TextView
@@ -27,6 +28,8 @@
             android:layout_height="wrap_content"
             android:textColor="#212121"
             android:text="Deskripsi Sampah"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:textSize="20sp"
             android:id="@+id/deskripsi"/>
         <TextView
