@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -74,6 +75,7 @@ public class SemuaFragment extends Fragment {
                     String namaUser = sn.child("namaUser").getValue(String.class);
                     String nomorTelepon = sn.child("nomorTelepon").getValue(String.class);
                     list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, namaUser, nomorTelepon));
+                    Collections.reverse(list_sampahs);
                 }
                 adapter = new SampahAdapter(getContext(), list_sampahs);
                 recycler_sampah.setAdapter(adapter);
