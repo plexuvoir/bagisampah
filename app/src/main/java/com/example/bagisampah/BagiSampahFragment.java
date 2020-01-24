@@ -3,10 +3,12 @@ package com.example.bagisampah;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,9 +20,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,6 +52,7 @@ import java.util.UUID;
 import static android.app.Activity.RESULT_OK;
 
 public class BagiSampahFragment extends Fragment {
+    private GoogleMap mMap;
     private EditText namaSampah, deskripsiSampah, kategoriSampah, alamatSampah, hargaSampah;
     private Button btn_post;
     private FirebaseAuth auth;
@@ -51,6 +61,9 @@ public class BagiSampahFragment extends Fragment {
     private String namaUserString, nomorTeleponString;
     private Spinner spinnerKategori;
     private static String imgLink = "belum masuk";
+    private ImageView imgMaps;
+    private String  eAddress;
+    private double eLatitude, eLongitude;
 
     private ImageView imgUploadSampah;
     private Uri filepath;
@@ -74,11 +87,62 @@ public class BagiSampahFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         imgUploadSampah = inflate.findViewById(R.id.imgUploadSampah);
-
+        imgMaps = inflate.findViewById(R.id.imgMaps);
         imgStorage = FirebaseStorage.getInstance();
         imgStorageReference = imgStorage.getReference();
 
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+
+//        if (prefs != null){
+//            eLatitude = Double.longBitsToDouble(prefs.getLong("lat",0));
+//            eLongitude = Double.longBitsToDouble(prefs.getLong("long",0));
+//            eAddress = prefs.getString("address",alamatSampah.getText().toString());
+//            System.out.println(eAddress);
+//            LatLng latLng = new LatLng(eLatitude, eLongitude);
+////// Add Marker
+////            mMap.addMarker(new MarkerOptions().position(latLng));
+////// Center map on the marker
+////            CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(latLng, 4.0f);
+////            mMap.animateCamera(yourLocation);
+////
+////            final ImageView mapPreview = inflate.findViewById(R.id.imgMaps);
+////            mapPreview.setOnClickListener(new View.OnClickListener() {
+////                @Override
+////                public void onClick(View view) {
+////                    // Hide the preview, to reveal the map
+////                    mapPreview.setImageBitmap(null);
+////                    mapPreview.setLayoutParams(new RelativeLayout.LayoutParams(0, 0));
+////
+////                    // Or start Google Maps app
+//////      String uri = String.format(Locale.ENGLISH, "geo:%f,%f", 50.0, 0.1);
+//////      Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+//////      startActivity(intent);
+////                }
+////            });
+////
+////            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+////                @Override
+////                public void onMapLoaded() {
+////                    // Make a snapshot when map's done loading
+////                    mMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
+////                        @Override
+////                        public void onSnapshotReady(Bitmap bitmap) {
+////                            mapPreview.setLayoutParams(new RelativeLayout.LayoutParams(
+////                                    ViewGroup.LayoutParams.MATCH_PARENT,
+////                                    ViewGroup.LayoutParams.MATCH_PARENT));
+////                            mapPreview.setImageBitmap(bitmap);
+////
+////                            // If map won't be used afterwards, remove it's views
+//////              ((FrameLayout)findViewById(R.id.map)).removeAllViews();
+////                        }
+////                    });
+////                }
+////            });
+//
+//            alamatSampah.setText(eAddress);
+//        }
 
         db.getReference("Users").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -95,6 +159,10 @@ public class BagiSampahFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+        });
+
+        imgMaps.setOnClickListener(view -> {
+            startActivity(new Intent(getContext(), MapsActivityBagi.class));
         });
 
         //image click
