@@ -70,6 +70,7 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
                     intent.putExtra("namaUser",listSampah.getNamaUser());
                     intent.putExtra("kontakUser",listSampah.getNomorTelepon());
                     intent.putExtra("alamatUser",listSampah.getAlamat());
+                    intent.putExtra("kategoriSampah",listSampah.getKategori());
                     v.getContext().startActivity(intent);
                 }else{
                     Log.d(TAG, "onClick: terklik");

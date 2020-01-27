@@ -15,10 +15,10 @@ public class DetailSampahSaya extends AppCompatActivity {
 
     private ImageView imgSampah;
     private TextView namaSampah, deskripsiSampah, hargaSampah, namaUser, kontakUser, alamatUser;
-    private Button btnWhatsapp;
+    private Button btnEdit;
 
     private String eimgSampah;
-    private String enamaSampah, edeskripsiSampah, ehargaSampah, enamaUser, ekontakUser, ealamatUser, ekontakUserWithoutZero;
+    private String enamaSampah, edeskripsiSampah, ehargaSampah, enamaUser, ekontakUser, ealamatUser, ekategori;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,18 @@ public class DetailSampahSaya extends AppCompatActivity {
         namaUser = findViewById(R.id.txt_nama_user);
         kontakUser = findViewById(R.id.txt_kontak_user);
         alamatUser = findViewById(R.id.txt_alamat_user);
+        btnEdit = findViewById(R.id.btn_edit);
+
+        btnEdit.setOnClickListener(view -> {
+            Intent intent = new Intent(DetailSampahSaya.this,EditSampah.class);
+            intent.putExtra("imgSampah",eimgSampah);
+            intent.putExtra("namaSampah",enamaSampah);
+            intent.putExtra("deskripsiSampah",edeskripsiSampah);
+            intent.putExtra("hargaSampah",ehargaSampah);
+            intent.putExtra("alamatUser",ealamatUser);
+            intent.putExtra("kategoriSampah",ekategori);
+            startActivity(intent);
+        });
 
 
 
@@ -51,6 +63,7 @@ public class DetailSampahSaya extends AppCompatActivity {
             enamaUser = extras.getString("namaUser");
             ekontakUser = extras.getString("kontakUser");
             ealamatUser = extras.getString("alamatUser");
+            ekategori = extras.getString("kategoriSampah");
         }
 
         Picasso.get().load(eimgSampah).into(imgSampah);
