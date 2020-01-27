@@ -92,7 +92,7 @@ public class BagiSampahFragment extends Fragment {
         imgStorageReference = imgStorage.getReference();
 
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
 
 //        if (prefs != null){
