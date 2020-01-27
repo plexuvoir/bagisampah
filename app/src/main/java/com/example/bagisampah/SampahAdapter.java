@@ -12,8 +12,15 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.Collections;
 import java.util.List;
 
 import static android.support.constraint.Constraints.TAG;
@@ -21,6 +28,9 @@ import static android.support.constraint.Constraints.TAG;
 public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder>{
     private Context context;
     private List<List_Sampah> listSampahs;
+    private FirebaseAuth auth;
+    private FirebaseDatabase db;
+
 
     public SampahAdapter(Context context, List<List_Sampah> my_data) {
         this.context = context;
@@ -46,18 +56,36 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
         holder.card_sampah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                db = FirebaseDatabase.getInstance();
+                auth = FirebaseAuth.getInstance();
 
-                Log.d(TAG, "onClick: terklik");
-                Log.d(TAG, "onClick: "+ listSampah.getNama());
-                Intent intent = new Intent(v.getContext(), DetailSampah.class);
-                intent.putExtra("imgSampah",listSampah.getImg());
-                intent.putExtra("namaSampah",listSampah.getNama());
-                intent.putExtra("deskripsiSampah",listSampah.getDeskripsi());
-                intent.putExtra("hargaSampah",listSampah.getHarga());
-                intent.putExtra("namaUser",listSampah.getNamaUser());
-                intent.putExtra("kontakUser",listSampah.getNomorTelepon());
-                intent.putExtra("alamatUser",listSampah.getAlamat());
-                v.getContext().startActivity(intent);
+                if(listSampah.getUser().equalsIgnoreCase(auth.getCurrentUser().getUid())){
+                    Log.d(TAG, "onClick: terklik");
+                    Log.d(TAG, "onClick: "+ listSampah.getNama());
+                    Intent intent = new Intent(v.getContext(), DetailSampahSaya.class);
+                    intent.putExtra("imgSampah",listSampah.getImg());
+                    intent.putExtra("namaSampah",listSampah.getNama());
+                    intent.putExtra("deskripsiSampah",listSampah.getDeskripsi());
+                    intent.putExtra("hargaSampah",listSampah.getHarga());
+                    intent.putExtra("namaUser",listSampah.getNamaUser());
+                    intent.putExtra("kontakUser",listSampah.getNomorTelepon());
+                    intent.putExtra("alamatUser",listSampah.getAlamat());
+                    v.getContext().startActivity(intent);
+                }else{
+                    Log.d(TAG, "onClick: terklik");
+                    Log.d(TAG, "onClick: "+ listSampah.getNama());
+                    Intent intent = new Intent(v.getContext(), DetailSampah.class);
+                    intent.putExtra("imgSampah",listSampah.getImg());
+                    intent.putExtra("namaSampah",listSampah.getNama());
+                    intent.putExtra("deskripsiSampah",listSampah.getDeskripsi());
+                    intent.putExtra("hargaSampah",listSampah.getHarga());
+                    intent.putExtra("namaUser",listSampah.getNamaUser());
+                    intent.putExtra("kontakUser",listSampah.getNomorTelepon());
+                    intent.putExtra("alamatUser",listSampah.getAlamat());
+                    v.getContext().startActivity(intent);
+                }
+
+
             }
         });
     }
