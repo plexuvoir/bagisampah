@@ -163,6 +163,7 @@ public class BagiSampahFragment extends Fragment {
 
         imgMaps.setOnClickListener(view -> {
             startActivity(new Intent(getContext(), MapsActivityBagi.class));
+            getActivity().finish();
         });
 
         //image click

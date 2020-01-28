@@ -28,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
+    private int itemID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,50 @@ public class MainActivity extends AppCompatActivity {
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();
 
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null){
+           itemID = extras.getInt("fragmentToLoad");
+            Fragment selectedFragment = null;
+            MenuItem menuItem;
+            boolean isChecked;
+            switch (itemID){
+                case R.id.nav_cari_sampah:
+                    selectedFragment = new SearchFragment();
+                    menuItem = bottomNav.getMenu().getItem(0);
+                    isChecked = menuItem.getItemId() == itemID;
+                    menuItem.setChecked(isChecked);
+                    break;
+                case R.id.nav_terbooking:
+                    selectedFragment = new TerbookingFragment();
+                    menuItem = bottomNav.getMenu().getItem(1);
+                    isChecked = menuItem.getItemId() == itemID;
+                    menuItem.setChecked(isChecked);
+                    break;
+                case R.id.nav_bagi_sampah:
+                    selectedFragment = new BagiSampahFragment();
+                    menuItem = bottomNav.getMenu().getItem(2);
+                    isChecked = menuItem.getItemId() == itemID;
+                    menuItem.setChecked(isChecked);
+                    break;
+                case R.id.nav_sampah_saya:
+                    selectedFragment = new SampahSayaFragment();
+                    menuItem = bottomNav.getMenu().getItem(3);
+                    isChecked = menuItem.getItemId() == itemID;
+                    menuItem.setChecked(isChecked);
+                    break;
+                case R.id.nav_profil:
+                    selectedFragment = new ProfilFragment();
+                    menuItem = bottomNav.getMenu().getItem(4);
+                    isChecked = menuItem.getItemId() == itemID;
+                    menuItem.setChecked(isChecked);
+                    break;
+
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+            extras=null;
+        }
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -58,7 +104,8 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()){
                 case R.id.nav_cari_sampah:
                     selectedFragment = new SearchFragment();
-                    Intent intent = getIntent();
+                    //Intent intent = getIntent();
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
                     overridePendingTransition(0, 0);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     finish();

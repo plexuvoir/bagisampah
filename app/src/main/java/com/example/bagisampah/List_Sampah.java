@@ -1,7 +1,7 @@
 package com.example.bagisampah;
 
 public class List_Sampah {
-    private String img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, user, namaUser, nomorTelepon;
+    private String img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, user, namaUser, nomorTelepon, key;
 
     public List_Sampah(String img, String nama, String deskripsi, String kategori, String latloc, String longloc, String harga, String status, String jarak, String alamat, String user, String namaUser, String nomorTelepon) {
         this.img = img;
@@ -17,6 +17,31 @@ public class List_Sampah {
         this.user = user;
         this.namaUser = namaUser;
         this.nomorTelepon = nomorTelepon;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public List_Sampah(String img, String nama, String deskripsi, String kategori, String latloc, String longloc, String harga, String status, String jarak, String alamat, String user, String namaUser, String nomorTelepon, String key) {
+        this.img = img;
+        this.nama = nama;
+        this.deskripsi = deskripsi;
+        this.kategori = kategori;
+        this.latloc = latloc;
+        this.longloc = longloc;
+        this.harga = harga;
+        this.status = status;
+        this.jarak = jarak;
+        this.alamat = alamat;
+        this.user = user;
+        this.namaUser = namaUser;
+        this.nomorTelepon = nomorTelepon;
+        this.key = key;
     }
 
     public String getImg() {

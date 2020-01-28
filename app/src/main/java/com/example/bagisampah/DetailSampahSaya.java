@@ -17,7 +17,7 @@ public class DetailSampahSaya extends AppCompatActivity {
     private TextView namaSampah, deskripsiSampah, hargaSampah, namaUser, kontakUser, alamatUser;
     private Button btnEdit;
 
-    private String eimgSampah;
+    private String eimgSampah, ekey;
     private String enamaSampah, edeskripsiSampah, ehargaSampah, enamaUser, ekontakUser, ealamatUser, ekategori;
 
     @Override
@@ -48,6 +48,9 @@ public class DetailSampahSaya extends AppCompatActivity {
             intent.putExtra("hargaSampah",ehargaSampah);
             intent.putExtra("alamatUser",ealamatUser);
             intent.putExtra("kategoriSampah",ekategori);
+            intent.putExtra("key", ekey);
+            intent.putExtra("namaUser", enamaUser);
+            intent.putExtra("kontakUser", ekontakUser);
             startActivity(intent);
         });
 
@@ -64,6 +67,7 @@ public class DetailSampahSaya extends AppCompatActivity {
             ekontakUser = extras.getString("kontakUser");
             ealamatUser = extras.getString("alamatUser");
             ekategori = extras.getString("kategoriSampah");
+            ekey = extras.getString("key");
         }
 
         Picasso.get().load(eimgSampah).into(imgSampah);

@@ -20,7 +20,7 @@
                 android:layout_margin="4dp"
                 android:layout_gravity="center_horizontal"
                 android:src="@drawable/blankimage"
-                android:scaleType="centerInside"
+                android:scaleType="centerCrop"
                 android:background="@drawable/blankimgbg"
                 />
             <TextView
@@ -127,11 +127,11 @@
                 android:inputType="numberDecimal"/>
 
             <Button
-                android:text="BAGIKAN"
+                android:text="SIMPAN"
                 android:textColor="#ffffff"
                 android:textSize="18sp"
                 android:background="@drawable/round_button"
-                android:id="@+id/btn_post"
+                android:id="@+id/btn_simpan"
                 android:layout_marginVertical="24dp"
                 android:layout_marginHorizontal="40dp"
                 android:layout_width="match_parent"
