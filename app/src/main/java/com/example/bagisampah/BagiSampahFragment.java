@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -64,9 +65,10 @@ public class BagiSampahFragment extends Fragment {
     private ImageView imgMaps;
     private String  eAddress;
     private double eLatitude, eLongitude;
+    private String nama="",deskripsi="",alamat="",harga="";
 
     private ImageView imgUploadSampah;
-    private Uri filepath;
+    private Uri filepath, filepathGlobal;
     private final int PICK_IMAGE_REQUEST = 71;
 
     //Firebase storage
@@ -90,6 +92,11 @@ public class BagiSampahFragment extends Fragment {
         imgMaps = inflate.findViewById(R.id.imgMaps);
         imgStorage = FirebaseStorage.getInstance();
         imgStorageReference = imgStorage.getReference();
+
+
+
+
+
 
 
         //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -162,6 +169,10 @@ public class BagiSampahFragment extends Fragment {
         });
 
         imgMaps.setOnClickListener(view -> {
+
+//            if (filepath!=null){
+//                DataBagiSampah.setImgSampah(filepath);
+//            }
             startActivity(new Intent(getContext(), MapsActivityBagi.class));
             getActivity().finish();
         });
@@ -186,11 +197,15 @@ public class BagiSampahFragment extends Fragment {
 
 
 
+
         btn_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 uploadImage();
-
+                DataBagiSampah.setNamaSampah("");
+                DataBagiSampah.setAlamatSampah("");
+                DataBagiSampah.setHargaSampah("");
+                DataBagiSampah.setDeskripsiSampah("");
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
@@ -225,6 +240,8 @@ public class BagiSampahFragment extends Fragment {
 
     }
 
+
+
     private void uploadImage(){
         if(filepath !=null){
             final ProgressDialog progressDialog = new ProgressDialog(getActivity());
@@ -247,6 +264,46 @@ public class BagiSampahFragment extends Fragment {
             });
 
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        setData();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        setData();
+    }
+
+    private void setData (){
+        DataBagiSampah.setNamaSampah(namaSampah.getText().toString());
+        DataBagiSampah.setDeskripsiSampah(deskripsiSampah.getText().toString());
+        DataBagiSampah.setKategoriSampah(spinnerKategori.getSelectedItem().toString());
+        DataBagiSampah.setAlamatSampah(alamatSampah.getText().toString());
+        DataBagiSampah.setHargaSampah(hargaSampah.getText().toString());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        namaSampah.setText(DataBagiSampah.getNamaSampah());
+        deskripsiSampah.setText(DataBagiSampah.getDeskripsiSampah());
+        alamatSampah.setText(DataBagiSampah.getAlamatSampah());
+        hargaSampah.setText(DataBagiSampah.getHargaSampah());
+//        if (DataBagiSampah.getImgSampah()!=null){
+////            try {
+////                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), DataBagiSampah.getImgSampah());
+////                imgUploadSampah.setImageBitmap(bitmap);
+////            } catch (IOException e){
+////                e.printStackTrace();
+////            }
+//            imgUploadSampah.setImageURI(DataBagiSampah.getImgSampah());
+//        }
+
     }
 
     private void uploadData(){

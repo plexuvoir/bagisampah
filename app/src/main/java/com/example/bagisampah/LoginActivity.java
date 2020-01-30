@@ -1,6 +1,7 @@
 package com.example.bagisampah;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -114,27 +115,30 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void addUserToDatabase(FirebaseUser user){
-        if (user !=null){
-            String nama=user.getDisplayName();
-            String noHP=user.getPhoneNumber();
-            for (UserInfo profile : user.getProviderData()) {
-                if (nama == null && profile.getDisplayName()!=null){
-                    nama = profile.getDisplayName();
-                    noHP = profile.getPhoneNumber();
+//            String nama=user.getDisplayName();
+//            String noHP=user.getPhoneNumber();
+//            for (UserInfo profile : user.getProviderData()) {
+//                if (nama == null && profile.getDisplayName()!=null){
+//                    nama = profile.getDisplayName();
+//                    noHP = profile.getPhoneNumber();
+//                }
+            //}
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Log.d("nama", user.getDisplayName());
+                    String email = user.getEmail();
+                    Log.d("nomor", user.getPhoneNumber());
+                    HashMap<String, Object> dataMap = new HashMap<String, Object>();
+                    dataMap.put("nama", user.getDisplayName());
+                    dataMap.put("email", email);
+                    dataMap.put("nomorHP", user.getPhoneNumber());
+                    mDatabase.child("Users").child(auth.getCurrentUser().getUid().toString()).setValue(dataMap);
+                    Toast.makeText(LoginActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
                 }
-            }
-            Log.d("nama", nama);
-            String email = user.getEmail();
-            Log.d("nomor", noHP);
-            HashMap<String, Object> dataMap = new HashMap<String, Object>();
-            dataMap.put("nama", nama);
-            dataMap.put("email", email);
-            dataMap.put("nomorHP", noHP);
-            mDatabase.child("Users").child(auth.getCurrentUser().getUid().toString()).setValue(dataMap);
-            Toast.makeText(LoginActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish();
-        }
+            },2000);
 
     }
 
