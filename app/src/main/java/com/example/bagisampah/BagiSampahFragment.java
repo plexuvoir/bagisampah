@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,6 +52,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
+import static android.support.constraint.Constraints.TAG;
 
 public class BagiSampahFragment extends Fragment {
     private GoogleMap mMap;
@@ -92,7 +94,6 @@ public class BagiSampahFragment extends Fragment {
         imgMaps = inflate.findViewById(R.id.imgMaps);
         imgStorage = FirebaseStorage.getInstance();
         imgStorageReference = imgStorage.getReference();
-
 
 
 
@@ -201,11 +202,17 @@ public class BagiSampahFragment extends Fragment {
         btn_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (filepath==null){
+                    filepath=filepathGlobal;
+                    Log.d(TAG, "filepathnull: "+filepath);
+
+                }
                 uploadImage();
                 DataBagiSampah.setNamaSampah("");
                 DataBagiSampah.setAlamatSampah("");
                 DataBagiSampah.setHargaSampah("");
                 DataBagiSampah.setDeskripsiSampah("");
+                DataBagiSampah.setImgSampah(null);
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
@@ -231,6 +238,13 @@ public class BagiSampahFragment extends Fragment {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filepath);
                 imgUploadSampah.setImageBitmap(bitmap);
+                BitmapDrawable drawable = (BitmapDrawable) imgUploadSampah.getDrawable();
+                Bitmap bitmap2 = drawable.getBitmap();
+                Log.d(TAG, "setData: "+drawable);
+                DataBagiSampah.setImgSampah(bitmap2);
+                DataBagiSampah.setImgSampahUri(filepath);
+                Log.d(TAG, "filepath "+filepath);
+
             }
             catch (IOException e)
             {
@@ -284,6 +298,7 @@ public class BagiSampahFragment extends Fragment {
         DataBagiSampah.setKategoriSampah(spinnerKategori.getSelectedItem().toString());
         DataBagiSampah.setAlamatSampah(alamatSampah.getText().toString());
         DataBagiSampah.setHargaSampah(hargaSampah.getText().toString());
+
     }
 
     @Override
@@ -294,6 +309,13 @@ public class BagiSampahFragment extends Fragment {
         deskripsiSampah.setText(DataBagiSampah.getDeskripsiSampah());
         alamatSampah.setText(DataBagiSampah.getAlamatSampah());
         hargaSampah.setText(DataBagiSampah.getHargaSampah());
+        if (DataBagiSampah.getImgSampah() !=null){
+            imgUploadSampah.setImageBitmap(DataBagiSampah.getImgSampah());
+            imgUploadSampah.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        }
+        filepathGlobal = DataBagiSampah.getImgSampahUri();
+        Log.d(TAG, "filepath global: "+filepathGlobal);
+
 //        if (DataBagiSampah.getImgSampah()!=null){
 ////            try {
 ////                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), DataBagiSampah.getImgSampah());

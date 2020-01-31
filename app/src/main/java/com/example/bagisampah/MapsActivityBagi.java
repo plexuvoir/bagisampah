@@ -1,11 +1,15 @@
 package com.example.bagisampah;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.design.widget.BottomSheetBehavior;
@@ -54,9 +58,11 @@ public class MapsActivityBagi extends FragmentActivity implements OnMapReadyCall
         mapFragment.getMapAsync(this);
         checkAndRequestPermissions();
         View bottomSheetInfo = findViewById(R.id.bottom_sheet_info);
+
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetInfo);
         txtLokasi = findViewById(R.id.txt_lokasi);
         btnSetLokasi = findViewById(R.id.btn_set_lokasi);
+
 
         btnSetLokasi.setOnClickListener(view -> {
 //            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -65,6 +71,7 @@ public class MapsActivityBagi extends FragmentActivity implements OnMapReadyCall
 //            editor.putLong("long", Double.doubleToRawLongBits(longSelected));
 //            editor.putString("address",address );
 //            editor.commit();
+            DataBagiSampah.setAlamatSampah(address);
             Intent intent = new Intent(MapsActivityBagi.this, MainActivity.class);
             intent.putExtra("fragmentToLoad", R.id.nav_bagi_sampah);
             startActivity(intent);
@@ -96,6 +103,29 @@ public class MapsActivityBagi extends FragmentActivity implements OnMapReadyCall
         mMap = googleMap;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(curLat,curLong),15.0f));
 
+        mMap.setMyLocationEnabled(true);
+
+
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+
+
+//        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+//            @Override
+//            public boolean onMyLocationButtonClick() {
+//
+//                MarkerOptions marker = new MarkerOptions().position(
+//                        new LatLng(curLat, curLong));
+//                mMap.addMarker(marker);
+//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(curLat,curLong),15.0f));
+//                return true;
+//            }
+//        });
+
+
+
+
+
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -103,6 +133,8 @@ public class MapsActivityBagi extends FragmentActivity implements OnMapReadyCall
 
                 // Setting the position for the marker
                 markerOptions.position(latLng);
+
+
 
                 // Setting the title for the marker.
                 // This will be displayed on taping the marker
@@ -135,6 +167,9 @@ public class MapsActivityBagi extends FragmentActivity implements OnMapReadyCall
             }
         });
     }
+
+
+
     private void addAddress(double latitude, double longitude)  throws IOException  {
         Geocoder geocoder;
         List<Address> addresses;

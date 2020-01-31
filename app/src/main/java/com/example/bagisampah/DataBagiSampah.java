@@ -1,10 +1,12 @@
 package com.example.bagisampah;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 public class DataBagiSampah {
     private static String namaSampah, deskripsiSampah, kategoriSampah, alamatSampah, hargaSampah;
-    private static Uri imgSampah;
+    private static Uri imgSampahUri;
+    private static Bitmap imgSampah;
 
 
     public static String getNamaSampah() {
@@ -47,11 +49,19 @@ public class DataBagiSampah {
         DataBagiSampah.hargaSampah = hargaSampah;
     }
 
-    public static Uri getImgSampah() {
+    public static Uri getImgSampahUri() {
+        return imgSampahUri;
+    }
+
+    public static void setImgSampahUri(Uri imgSampahUri) {
+        DataBagiSampah.imgSampahUri = imgSampahUri;
+    }
+
+    public static Bitmap getImgSampah() {
         return imgSampah;
     }
 
-    public static void setImgSampah(Uri imgSampah) {
+    public static void setImgSampah(Bitmap imgSampah) {
         DataBagiSampah.imgSampah = imgSampah;
     }
 }

@@ -58,7 +58,6 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
             public void onClick(View v) {
                 db = FirebaseDatabase.getInstance();
                 auth = FirebaseAuth.getInstance();
-
                 if(listSampah.getUser().equalsIgnoreCase(auth.getCurrentUser().getUid())){
                     Log.d(TAG, "onClick: terklik");
                     Log.d(TAG, "onClick: "+ listSampah.getNama());
@@ -72,7 +71,7 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
                     intent.putExtra("alamatUser",listSampah.getAlamat());
                     intent.putExtra("kategoriSampah",listSampah.getKategori());
                     intent.putExtra("key", listSampah.getKey());
-                    Log.d("keyyy", listSampah.getKey());
+                    Log.d(TAG, "key1: "+listSampah.getKey());
                     v.getContext().startActivity(intent);
                 }else{
                     Log.d(TAG, "onClick: terklik");
@@ -81,10 +80,14 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
                     intent.putExtra("imgSampah",listSampah.getImg());
                     intent.putExtra("namaSampah",listSampah.getNama());
                     intent.putExtra("deskripsiSampah",listSampah.getDeskripsi());
+                    intent.putExtra("kategoriSampah",listSampah.getKategori());
                     intent.putExtra("hargaSampah",listSampah.getHarga());
                     intent.putExtra("namaUser",listSampah.getNamaUser());
                     intent.putExtra("kontakUser",listSampah.getNomorTelepon());
                     intent.putExtra("alamatUser",listSampah.getAlamat());
+                    intent.putExtra("key", listSampah.getKey());
+                    Log.d(TAG, "key2: "+listSampah.getKey());
+                    intent.putExtra("uid", listSampah.getUser());
                     v.getContext().startActivity(intent);
                 }
 

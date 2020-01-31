@@ -74,7 +74,8 @@ public class SemuaFragment extends Fragment {
                     String uid = sn.child("user").getValue(String.class);
                     String namaUser = sn.child("namaUser").getValue(String.class);
                     String nomorTelepon = sn.child("nomorTelepon").getValue(String.class);
-                    list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, namaUser, nomorTelepon));
+                    String key = sn.getKey();
+                    list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, namaUser, nomorTelepon, key));
                     Collections.reverse(list_sampahs);
                 }
                 adapter = new SampahAdapter(getContext(), list_sampahs);
