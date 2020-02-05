@@ -1,7 +1,7 @@
 package com.example.bagisampah;
 
 public class List_Sampah {
-    private String img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, user, namaUser, nomorTelepon, key;
+    private String img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, user, namaUser, nomorTelepon, key, idPengambil, namaPengambil, nomorPengambil;
 
     public List_Sampah(String img, String nama, String deskripsi, String kategori, String latloc, String longloc, String harga, String status, String jarak, String alamat, String user, String namaUser, String nomorTelepon) {
         this.img = img;
@@ -42,6 +42,50 @@ public class List_Sampah {
         this.namaUser = namaUser;
         this.nomorTelepon = nomorTelepon;
         this.key = key;
+    }
+
+    public List_Sampah(String img, String nama, String deskripsi, String kategori, String latloc, String longloc, String harga, String status, String jarak, String alamat, String user, String namaUser, String nomorTelepon, String key, String idPengambil, String namaPengambil, String nomorPengambil) {
+        this.img = img;
+        this.nama = nama;
+        this.deskripsi = deskripsi;
+        this.kategori = kategori;
+        this.latloc = latloc;
+        this.longloc = longloc;
+        this.harga = harga;
+        this.status = status;
+        this.jarak = jarak;
+        this.alamat = alamat;
+        this.user = user;
+        this.namaUser = namaUser;
+        this.nomorTelepon = nomorTelepon;
+        this.key = key;
+        this.idPengambil = idPengambil;
+        this.namaPengambil = namaPengambil;
+        this.nomorPengambil = nomorPengambil;
+    }
+
+    public String getIdPengambil() {
+        return idPengambil;
+    }
+
+    public void setIdPengambil(String idPengambil) {
+        this.idPengambil = idPengambil;
+    }
+
+    public String getNamaPengambil() {
+        return namaPengambil;
+    }
+
+    public void setNamaPengambil(String namaPengambil) {
+        this.namaPengambil = namaPengambil;
+    }
+
+    public String getNomorPengambil() {
+        return nomorPengambil;
+    }
+
+    public void setNomorPengambil(String nomorPengambil) {
+        this.nomorPengambil = nomorPengambil;
     }
 
     public String getImg() {

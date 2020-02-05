@@ -69,7 +69,10 @@ public class SampahSayaFragment extends Fragment {
                         String namaUser = sn.child("namaUser").getValue(String.class);
                         String nomorTelepon = sn.child("nomorTelepon").getValue(String.class);
                         String key = sn.getKey();
-                        list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, namaUser, nomorTelepon, key));
+                        String namaPengambil = sn.child("namaPengambil").getValue(String.class);
+                        String nomorPengambil = sn.child("nomorPengambil").getValue(String.class);
+                        String idPengambil = sn.child("idPengambil").getValue(String.class);
+                        list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, namaUser, nomorTelepon, key, idPengambil, namaPengambil, nomorPengambil));
                         Collections.reverse(list_sampahs);
                     }
                 }

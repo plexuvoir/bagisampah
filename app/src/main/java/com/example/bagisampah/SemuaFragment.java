@@ -61,22 +61,27 @@ public class SemuaFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list_sampahs.clear();
                 for (DataSnapshot sn : dataSnapshot.getChildren()){
-                    String img = sn.child("img").getValue(String.class);
-                    String nama = sn.child("namaSampah").getValue(String.class);
-                    String deskripsi = sn.child("deskripsiSampah").getValue(String.class);
-                    String kategori = sn.child("kategoriSampah").getValue(String.class);
-                    String latloc = sn.child("latlocSampah").getValue(String.class);
-                    String longloc = sn.child("longlocSampah").getValue(String.class);
-                    String harga = sn.child("hargaSampah").getValue(String.class);
-                    String status = sn.child("statusSampah").getValue(String.class);
-                    String jarak = sn.child("jarakSampah").getValue(String.class);
-                    String alamat = sn.child("alamatSampah").getValue(String.class);
-                    String uid = sn.child("user").getValue(String.class);
-                    String namaUser = sn.child("namaUser").getValue(String.class);
-                    String nomorTelepon = sn.child("nomorTelepon").getValue(String.class);
-                    String key = sn.getKey();
-                    list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, namaUser, nomorTelepon, key));
-                    Collections.reverse(list_sampahs);
+                    if(sn.child("statusSampah").getValue(String.class).equalsIgnoreCase("Available")){
+                        String img = sn.child("img").getValue(String.class);
+                        String nama = sn.child("namaSampah").getValue(String.class);
+                        String deskripsi = sn.child("deskripsiSampah").getValue(String.class);
+                        String kategori = sn.child("kategoriSampah").getValue(String.class);
+                        String latloc = sn.child("latlocSampah").getValue(String.class);
+                        String longloc = sn.child("longlocSampah").getValue(String.class);
+                        String harga = sn.child("hargaSampah").getValue(String.class);
+                        String status = sn.child("statusSampah").getValue(String.class);
+                        String jarak = sn.child("jarakSampah").getValue(String.class);
+                        String alamat = sn.child("alamatSampah").getValue(String.class);
+                        String uid = sn.child("user").getValue(String.class);
+                        String namaUser = sn.child("namaUser").getValue(String.class);
+                        String nomorTelepon = sn.child("nomorTelepon").getValue(String.class);
+                        String key = sn.getKey();
+                        String namaPengambil = sn.child("namaPengambil").getValue(String.class);
+                        String nomorPengambil = sn.child("nomorPengambil").getValue(String.class);
+                        String idPengambil = sn.child("idPengambil").getValue(String.class);
+                        list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, namaUser, nomorTelepon, key, idPengambil, namaPengambil, nomorPengambil));
+                        Collections.reverse(list_sampahs);
+                    }
                 }
                 adapter = new SampahAdapter(getContext(), list_sampahs);
                 recycler_sampah.setAdapter(adapter);

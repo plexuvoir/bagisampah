@@ -208,11 +208,6 @@ public class BagiSampahFragment extends Fragment {
 
                 }
                 uploadImage();
-                DataBagiSampah.setNamaSampah("");
-                DataBagiSampah.setAlamatSampah("");
-                DataBagiSampah.setHargaSampah("");
-                DataBagiSampah.setDeskripsiSampah("");
-                DataBagiSampah.setImgSampah(null);
                 Intent intent = new Intent(getContext(), MainActivity.class);
                 startActivity(intent);
                 getActivity().finish();
@@ -341,6 +336,9 @@ public class BagiSampahFragment extends Fragment {
         String userString = auth.getCurrentUser().getUid();
         Log.d("user", userString);
         String alamatSampahString = alamatSampah.getText().toString();
+        String idPengambil = "idpengambil0";
+        String namaPengambil = "namapengambil0";
+        String nomorPengambil = "nomorpengambil0";
         HashMap<String, Object> dataMap = new HashMap<String, Object>();
         dataMap.put("img", imgString);
         dataMap.put("namaSampah", namaSampahString);
@@ -355,8 +353,15 @@ public class BagiSampahFragment extends Fragment {
         dataMap.put("alamatSampah", alamatSampahString);
         dataMap.put("namaUser", namaUserString);
         dataMap.put("nomorTelepon", nomorTeleponString);
+        dataMap.put("idPengambil", idPengambil);
+        dataMap.put("namaPengambil", namaPengambil);
+        dataMap.put("nomorPengambil", nomorPengambil);
         mDatabase.child("DBSampah").push().setValue(dataMap);
+        DataBagiSampah.setNamaSampah(null);
+        DataBagiSampah.setAlamatSampah(null);
+        DataBagiSampah.setHargaSampah(null);
+        DataBagiSampah.setDeskripsiSampah(null);
+        DataBagiSampah.setImgSampah(null);
+
     }
-
-
 }

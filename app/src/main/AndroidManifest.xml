@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditSampah"></activity>
+        <activity android:name=".DetailSampahTerbooking"></activity>
+        <activity android:name=".DetailSampahTerbookingSaya" />
+        <activity android:name=".EditSampah" />
         <activity
             android:name=".DetailSampahSaya"
             android:parentActivityName=".MainActivity" />

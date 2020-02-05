@@ -1,13 +1,11 @@
 package com.example.bagisampah;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,13 +20,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.HashMap;
-
-public class DetailSampah extends AppCompatActivity {
+public class DetailSampahTerbooking extends AppCompatActivity {
 
     private ImageView imgSampah;
     private TextView namaSampah, deskripsiSampah, hargaSampah, namaUser, kontakUser, alamatUser;
-    private Button btnWhatsapp, btnAmbil;
+    private Button btnWhatsapp, btnCancel;
     private DatabaseReference mDatabase;
     private FirebaseAuth auth;
     private String namaUserString, nomorTeleponString;
@@ -39,9 +35,7 @@ public class DetailSampah extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_sampah);
-
-
+        setContentView(R.layout.activity_detail_sampah_terbooking);
         getSupportActionBar().setTitle("Detail Sampah");
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
@@ -53,7 +47,7 @@ public class DetailSampah extends AppCompatActivity {
         kontakUser = findViewById(R.id.txt_kontak_user);
         alamatUser = findViewById(R.id.txt_alamat_user);
         btnWhatsapp = findViewById(R.id.btn_Whatsapp);
-        btnAmbil = findViewById(R.id.btn_ambil);
+        btnCancel = findViewById(R.id.btn_cancel);
 
         db = FirebaseDatabase.getInstance();
 
@@ -61,15 +55,11 @@ public class DetailSampah extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
 
-
-
         Bundle extras = getIntent().getExtras();
 
         if (extras != null){
             eimgSampah = extras.getString("imgSampah");
-            Log.d("img", "onCreate: "+eimgSampah);
             enamaSampah = extras.getString("namaSampah");
-            Log.d("nama", "onCreate: "+enamaSampah);
             edeskripsiSampah = extras.getString("deskripsiSampah");
             ehargaSampah = extras.getString("hargaSampah");
             enamaUser = extras.getString("namaUser");
@@ -77,9 +67,8 @@ public class DetailSampah extends AppCompatActivity {
             ealamatUser = extras.getString("alamatUser");
             ekategoriSampah = extras.getString("kategoriSampah");
             ekey = extras.getString("key");
-            Log.d("ekey", "onCreate: "+ekey);
             euid = extras.getString("uid");
-            Log.d("euid", "onCreate: "+euid);
+
         }
 
         Picasso.get().load(eimgSampah).into(imgSampah);
@@ -126,25 +115,24 @@ public class DetailSampah extends AppCompatActivity {
             }
         });
 
-        btnAmbil.setOnClickListener(view -> {
+        btnCancel.setOnClickListener(view -> {
             uploadData();
         });
 
     }
-
     private void uploadData(){
-        String statusSampahString = "Terbooking";
-        String idPengambil = auth.getCurrentUser().getUid();
-        String namaPengambil = namaUserString;
-        String nomorPengambil = nomorTeleponString;
+        String statusSampahString = "Available";
+        String idPengambil = "idPengambil0";
+        String namaPengambil = "namaPengambil0";
+        String nomorPengambil = "nomorPengambil0";
         mDatabase.child("DBSampah").child(ekey).child("statusSampah").setValue(statusSampahString);
         mDatabase.child("DBSampah").child(ekey).child("idPengambil").setValue(idPengambil);
         mDatabase.child("DBSampah").child(ekey).child("namaPengambil").setValue(namaPengambil);
         mDatabase.child("DBSampah").child(ekey).child("nomorPengambil").setValue(nomorPengambil).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Intent intent = new Intent(DetailSampah.this,MainActivity.class);
-                intent.putExtra("fragmentToLoad",R.id.nav_terbooking);
+                Intent intent = new Intent(DetailSampahTerbooking.this,MainActivity.class);
+                intent.putExtra("fragmentToLoad",R.id.nav_cari_sampah);
                 startActivity(intent);
             }
         });
