@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="ini nama sampah"
-                android:textSize="25dp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/txt_deskripsi_sampah"
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="detail sampah"
-                android:textSize="20sp"/>
+                android:textSize="16sp"/>
             <LinearLayout
                 android:layout_marginVertical="5dp"
                 android:layout_width="match_parent"
@@ -49,8 +49,7 @@
                     android:textColor="#212121"
                     android:layout_height="wrap_content"
                     android:text="Harga"
-                    android:textSize="25dp"
-                    android:textStyle="bold"
+                    android:textSize="20dp"
                     />
                 <TextView
                     android:id="@+id/txt_harga"
@@ -59,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="harga"
-                    android:textSize="25dp"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     />
             </LinearLayout>
@@ -75,7 +74,6 @@
                     android:layout_height="wrap_content"
                     android:text="Nama:"
                     android:textSize="20dp"
-                    android:textStyle="bold"
                     />
                 <TextView
                     android:id="@+id/txt_nama_user"
@@ -98,7 +96,6 @@
                     android:layout_height="wrap_content"
                     android:text="Kontak:"
                     android:textSize="20dp"
-                    android:textStyle="bold"
                     />
                 <TextView
                     android:id="@+id/txt_kontak_user"
@@ -121,7 +118,6 @@
                     android:layout_height="wrap_content"
                     android:text="Alamat:"
                     android:textSize="20dp"
-                    android:textStyle="bold"
                     />
                 <TextView
                     android:id="@+id/txt_alamat_user"

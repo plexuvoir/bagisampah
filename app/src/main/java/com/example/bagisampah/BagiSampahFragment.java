@@ -276,7 +276,7 @@ public class BagiSampahFragment extends Fragment {
         String longlocSampahString = "Longloc Sampah 0";
         String hargaSampahString = hargaSampah.getText().toString();
         String statusSampahString = "Available";
-        String jarakSampahString = "Jarak Sampah 0";
+        String jarakSampahString = "0";
         String userString = auth.getCurrentUser().getUid();
         Log.d("user", userString);
         String alamatSampahString = alamatSampah.getText().toString();

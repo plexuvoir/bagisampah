@@ -2,6 +2,7 @@ package com.example.bagisampah;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -50,7 +51,12 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
         holder.nama.setText(listSampah.getNama());
         holder.deskripsi.setText(listSampah.getDeskripsi());
         holder.harga.setText("Rp."+listSampah.getHarga());
-        holder.jarak.setText(listSampah.getJarak());
+        if(listSampah.getHarga().equalsIgnoreCase("0")){
+            holder.harga.setBackgroundResource(R.drawable.bg_gratis_round);
+            holder.harga.setText("Gratis");
+            holder.harga.setTextColor(Color.parseColor("#FFFFFF"));
+        }
+        holder.jarak.setText(listSampah.getJarak()+" KM");
         Picasso.get().load(listSampah.getImg()).into(holder.imgSampah);
 
         holder.card_sampah.setOnClickListener(new View.OnClickListener() {
