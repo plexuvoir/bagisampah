@@ -61,7 +61,7 @@ public class EditSampah extends AppCompatActivity {
     private Uri filepath;
     private final int PICK_IMAGE_REQUEST = 71;
 
-    private String enamaSampah, edeskripsiSampah, ehargaSampah, enamaUser, ekontakUser, ealamatUser, ekategori, eimgSampah;
+    private String enamaSampah, edeskripsiSampah, ehargaSampah, ealamatUser, ekategori, eimgSampah;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,8 +92,6 @@ public class EditSampah extends AppCompatActivity {
             ealamatUser = extras.getString("alamatUser");
             ekategori = extras.getString("kategoriSampah");
             ekey = extras.getString("key");
-            enamaUser = extras.getString("namaUser");
-            ekontakUser = extras.getString("kontakUser");
             Log.d("ekeyy", ekey);
             imgLink = eimgSampah;
 
@@ -212,6 +210,7 @@ public class EditSampah extends AppCompatActivity {
         String hargaSampahString = hargaSampah.getText().toString();
         String statusSampahString = "Available";
         String jarakSampahString = "Jarak Sampah 0";
+        String idPengambil = "idPengambil0";
         String userString = auth.getCurrentUser().getUid();
         Log.d("user", userString);
         String alamatSampahString = alamatSampah.getText().toString();
@@ -227,8 +226,7 @@ public class EditSampah extends AppCompatActivity {
         dataMap.put("jarakSampah", jarakSampahString);
         dataMap.put("user", userString);
         dataMap.put("alamatSampah", alamatSampahString);
-        dataMap.put("namaUser", enamaUser);
-        dataMap.put("nomorTelepon", ekontakUser);
+        dataMap.put("idPengambil", idPengambil);
         System.out.println(ekey);
         mDatabase.child("DBSampah").child(ekey).setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

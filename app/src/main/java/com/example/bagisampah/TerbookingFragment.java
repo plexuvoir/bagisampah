@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -64,16 +65,15 @@ public class TerbookingFragment extends Fragment {
                         String jarak = sn.child("jarakSampah").getValue(String.class);
                         String alamat = sn.child("alamatSampah").getValue(String.class);
                         String uid = sn.child("user").getValue(String.class);
-                        String namaUser = sn.child("namaUser").getValue(String.class);
-                        String nomorTelepon = sn.child("nomorTelepon").getValue(String.class);
                         String key = sn.getKey();
-                        String namaPengambil = sn.child("namaPengambil").getValue(String.class);
-                        String nomorPengambil = sn.child("nomorPengambil").getValue(String.class);
                         String idPengambil = sn.child("idPengambil").getValue(String.class);
-                        list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, namaUser, nomorTelepon, key, idPengambil, namaPengambil, nomorPengambil));
+                        list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, key, idPengambil));
                         Collections.reverse(list_sampahs);
                     }
                 }
+//                if (list_sampahs==null){
+//                    Toast.makeText(getContext(), "Berhasil Login", Toast.LENGTH_SHORT).show();
+//                }
                 adapter = new SampahAdapter(getContext(), list_sampahs);
                 recycler_sampah.setAdapter(adapter);
             }

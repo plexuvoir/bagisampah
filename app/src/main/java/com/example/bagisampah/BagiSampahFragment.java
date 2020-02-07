@@ -96,62 +96,6 @@ public class BagiSampahFragment extends Fragment {
         imgStorageReference = imgStorage.getReference();
 
 
-
-
-
-
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-
-//        if (prefs != null){
-//            eLatitude = Double.longBitsToDouble(prefs.getLong("lat",0));
-//            eLongitude = Double.longBitsToDouble(prefs.getLong("long",0));
-//            eAddress = prefs.getString("address",alamatSampah.getText().toString());
-//            System.out.println(eAddress);
-//            LatLng latLng = new LatLng(eLatitude, eLongitude);
-////// Add Marker
-////            mMap.addMarker(new MarkerOptions().position(latLng));
-////// Center map on the marker
-////            CameraUpdate yourLocation = CameraUpdateFactory.newLatLngZoom(latLng, 4.0f);
-////            mMap.animateCamera(yourLocation);
-////
-////            final ImageView mapPreview = inflate.findViewById(R.id.imgMaps);
-////            mapPreview.setOnClickListener(new View.OnClickListener() {
-////                @Override
-////                public void onClick(View view) {
-////                    // Hide the preview, to reveal the map
-////                    mapPreview.setImageBitmap(null);
-////                    mapPreview.setLayoutParams(new RelativeLayout.LayoutParams(0, 0));
-////
-////                    // Or start Google Maps app
-//////      String uri = String.format(Locale.ENGLISH, "geo:%f,%f", 50.0, 0.1);
-//////      Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-//////      startActivity(intent);
-////                }
-////            });
-////
-////            mMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-////                @Override
-////                public void onMapLoaded() {
-////                    // Make a snapshot when map's done loading
-////                    mMap.snapshot(new GoogleMap.SnapshotReadyCallback() {
-////                        @Override
-////                        public void onSnapshotReady(Bitmap bitmap) {
-////                            mapPreview.setLayoutParams(new RelativeLayout.LayoutParams(
-////                                    ViewGroup.LayoutParams.MATCH_PARENT,
-////                                    ViewGroup.LayoutParams.MATCH_PARENT));
-////                            mapPreview.setImageBitmap(bitmap);
-////
-////                            // If map won't be used afterwards, remove it's views
-//////              ((FrameLayout)findViewById(R.id.map)).removeAllViews();
-////                        }
-////                    });
-////                }
-////            });
-//
-//            alamatSampah.setText(eAddress);
-//        }
-
         db.getReference("Users").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -337,8 +281,8 @@ public class BagiSampahFragment extends Fragment {
         Log.d("user", userString);
         String alamatSampahString = alamatSampah.getText().toString();
         String idPengambil = "idpengambil0";
-        String namaPengambil = "namapengambil0";
-        String nomorPengambil = "nomorpengambil0";
+//        String namaPengambil = "namapengambil0";
+//        String nomorPengambil = "nomorpengambil0";
         HashMap<String, Object> dataMap = new HashMap<String, Object>();
         dataMap.put("img", imgString);
         dataMap.put("namaSampah", namaSampahString);
@@ -354,8 +298,8 @@ public class BagiSampahFragment extends Fragment {
         dataMap.put("namaUser", namaUserString);
         dataMap.put("nomorTelepon", nomorTeleponString);
         dataMap.put("idPengambil", idPengambil);
-        dataMap.put("namaPengambil", namaPengambil);
-        dataMap.put("nomorPengambil", nomorPengambil);
+//        dataMap.put("namaPengambil", namaPengambil);
+//        dataMap.put("nomorPengambil", nomorPengambil);
         mDatabase.child("DBSampah").push().setValue(dataMap);
         DataBagiSampah.setNamaSampah(null);
         DataBagiSampah.setAlamatSampah(null);

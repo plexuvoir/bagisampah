@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +23,7 @@ public class ProfilFragment extends Fragment {
     Button btn_logout;
     String namaUserString, nomorTeleponString, emailString;
 
+    ImageView btnEditNama, btnEditNomor;
     TextView txtNama, txtNomorWhatsapp, txtMail;
 
     private FirebaseDatabase db;
@@ -34,6 +36,8 @@ public class ProfilFragment extends Fragment {
         txtMail = inflate.findViewById(R.id.txt_mail);
         txtNama = inflate.findViewById(R.id.txt_nama_user);
         txtNomorWhatsapp = inflate.findViewById(R.id.txt_nomor_whatsapp);
+        btnEditNama = inflate.findViewById(R.id.btn_edit_nama);
+        btnEditNomor = inflate.findViewById(R.id.btn_edit_nomor);
 
         db = FirebaseDatabase.getInstance();
         db.getReference("Users").child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
@@ -68,7 +72,18 @@ public class ProfilFragment extends Fragment {
             startActivity(intent);
         });
 
+        btnEditNama.setOnClickListener(view -> {
+            BottomSheetDialogNama bottomSheetDialogNama = new BottomSheetDialogNama();
+            bottomSheetDialogNama.show(getActivity().getSupportFragmentManager(), "bottomSheet");
+        });
+
+        btnEditNomor.setOnClickListener(view -> {
+            BottomSheetDialogNomor bottomSheetDialogNomor = new BottomSheetDialogNomor();
+            bottomSheetDialogNomor.show(getActivity().getSupportFragmentManager(), "bottomSheet");
+        });
+
 
         return inflate;
     }
+
 }

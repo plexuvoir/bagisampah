@@ -1,23 +1,8 @@
 package com.example.bagisampah;
 
 public class List_Sampah {
-    private String img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, user, namaUser, nomorTelepon, key, idPengambil, namaPengambil, nomorPengambil;
+    private String img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, user, key, idPengambil;
 
-    public List_Sampah(String img, String nama, String deskripsi, String kategori, String latloc, String longloc, String harga, String status, String jarak, String alamat, String user, String namaUser, String nomorTelepon) {
-        this.img = img;
-        this.nama = nama;
-        this.deskripsi = deskripsi;
-        this.kategori = kategori;
-        this.latloc = latloc;
-        this.longloc = longloc;
-        this.harga = harga;
-        this.status = status;
-        this.jarak = jarak;
-        this.alamat = alamat;
-        this.user = user;
-        this.namaUser = namaUser;
-        this.nomorTelepon = nomorTelepon;
-    }
 
     public String getKey() {
         return key;
@@ -27,7 +12,7 @@ public class List_Sampah {
         this.key = key;
     }
 
-    public List_Sampah(String img, String nama, String deskripsi, String kategori, String latloc, String longloc, String harga, String status, String jarak, String alamat, String user, String namaUser, String nomorTelepon, String key) {
+    public List_Sampah(String img, String nama, String deskripsi, String kategori, String latloc, String longloc, String harga, String status, String jarak, String alamat, String user, String key) {
         this.img = img;
         this.nama = nama;
         this.deskripsi = deskripsi;
@@ -39,12 +24,10 @@ public class List_Sampah {
         this.jarak = jarak;
         this.alamat = alamat;
         this.user = user;
-        this.namaUser = namaUser;
-        this.nomorTelepon = nomorTelepon;
         this.key = key;
     }
 
-    public List_Sampah(String img, String nama, String deskripsi, String kategori, String latloc, String longloc, String harga, String status, String jarak, String alamat, String user, String namaUser, String nomorTelepon, String key, String idPengambil, String namaPengambil, String nomorPengambil) {
+    public List_Sampah(String img, String nama, String deskripsi, String kategori, String latloc, String longloc, String harga, String status, String jarak, String alamat, String user, String key, String idPengambil) {
         this.img = img;
         this.nama = nama;
         this.deskripsi = deskripsi;
@@ -56,12 +39,8 @@ public class List_Sampah {
         this.jarak = jarak;
         this.alamat = alamat;
         this.user = user;
-        this.namaUser = namaUser;
-        this.nomorTelepon = nomorTelepon;
         this.key = key;
         this.idPengambil = idPengambil;
-        this.namaPengambil = namaPengambil;
-        this.nomorPengambil = nomorPengambil;
     }
 
     public String getIdPengambil() {
@@ -72,21 +51,6 @@ public class List_Sampah {
         this.idPengambil = idPengambil;
     }
 
-    public String getNamaPengambil() {
-        return namaPengambil;
-    }
-
-    public void setNamaPengambil(String namaPengambil) {
-        this.namaPengambil = namaPengambil;
-    }
-
-    public String getNomorPengambil() {
-        return nomorPengambil;
-    }
-
-    public void setNomorPengambil(String nomorPengambil) {
-        this.nomorPengambil = nomorPengambil;
-    }
 
     public String getImg() {
         return img;
@@ -176,19 +140,4 @@ public class List_Sampah {
         this.user = user;
     }
 
-    public String getNamaUser() {
-        return namaUser;
-    }
-
-    public void setNamaUser(String namaUser) {
-        this.namaUser = namaUser;
-    }
-
-    public String getNomorTelepon() {
-        return nomorTelepon;
-    }
-
-    public void setNomorTelepon(String nomorTelepon) {
-        this.nomorTelepon = nomorTelepon;
-    }
 }

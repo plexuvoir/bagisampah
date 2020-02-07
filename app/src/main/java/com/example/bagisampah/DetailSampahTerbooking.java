@@ -30,7 +30,7 @@ public class DetailSampahTerbooking extends AppCompatActivity {
     private String namaUserString, nomorTeleponString;
     private FirebaseDatabase db;
     private String eimgSampah;
-    private String enamaSampah, edeskripsiSampah, ehargaSampah, enamaUser, ekontakUser, ealamatUser, ekontakUserWithoutZero, ekey, ekategoriSampah, euid;
+    private String enamaSampah, edeskripsiSampah, ehargaSampah, ealamatUser, ekontakUserWithoutZero, ekey, ekategoriSampah, euid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +62,28 @@ public class DetailSampahTerbooking extends AppCompatActivity {
             enamaSampah = extras.getString("namaSampah");
             edeskripsiSampah = extras.getString("deskripsiSampah");
             ehargaSampah = extras.getString("hargaSampah");
-            enamaUser = extras.getString("namaUser");
-            ekontakUser = extras.getString("kontakUser");
             ealamatUser = extras.getString("alamatUser");
             ekategoriSampah = extras.getString("kategoriSampah");
             ekey = extras.getString("key");
             euid = extras.getString("uid");
+
+            db.getReference("Users").child(euid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String mNamaUser = dataSnapshot.child("nama").getValue(String.class);
+                    namaUserString=mNamaUser;
+                    String nomorTelepon = dataSnapshot.child("nomorHP").getValue(String.class);
+                    nomorTeleponString= nomorTelepon;
+
+                    namaUser.setText(namaUserString);
+                    kontakUser.setText(nomorTeleponString);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
         }
 
@@ -75,17 +91,15 @@ public class DetailSampahTerbooking extends AppCompatActivity {
         namaSampah.setText(enamaSampah);
         deskripsiSampah.setText(edeskripsiSampah);
         hargaSampah.setText("Rp."+ehargaSampah);
-        namaUser.setText(enamaUser);
-        kontakUser.setText(ekontakUser);
         alamatUser.setText(ealamatUser);
 
         btnWhatsapp.setOnClickListener(view -> {
             try {
                 String text = "Hai sampah ini ready?";// Replace with your message.
-                if (ekontakUser.charAt(0)==0){
-                    ekontakUserWithoutZero = ekontakUser.substring(1);
+                if (nomorTeleponString.charAt(0)==0){
+                    ekontakUserWithoutZero = nomorTeleponString.substring(1);
                 } else {
-                    ekontakUserWithoutZero = ekontakUser;
+                    ekontakUserWithoutZero = nomorTeleponString;
                 }
                 String toNumber = "62"+ekontakUserWithoutZero; // Replace with mobile phone number without +Sign or leading zeros, but with country cod
                 //Suppose your country is India and your phone number is “xxxxxxxxxx”, then you need to send “91xxxxxxxxxx”.
@@ -100,20 +114,8 @@ public class DetailSampahTerbooking extends AppCompatActivity {
             }
         });
 
-        db.getReference("Users").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String namaUser = dataSnapshot.child("nama").getValue(String.class);
-                namaUserString=namaUser;
-                String nomorTelepon = dataSnapshot.child("nomorHP").getValue(String.class);
-                nomorTeleponString= nomorTelepon;
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
 
         btnCancel.setOnClickListener(view -> {
             uploadData();
@@ -123,12 +125,8 @@ public class DetailSampahTerbooking extends AppCompatActivity {
     private void uploadData(){
         String statusSampahString = "Available";
         String idPengambil = "idPengambil0";
-        String namaPengambil = "namaPengambil0";
-        String nomorPengambil = "nomorPengambil0";
         mDatabase.child("DBSampah").child(ekey).child("statusSampah").setValue(statusSampahString);
-        mDatabase.child("DBSampah").child(ekey).child("idPengambil").setValue(idPengambil);
-        mDatabase.child("DBSampah").child(ekey).child("namaPengambil").setValue(namaPengambil);
-        mDatabase.child("DBSampah").child(ekey).child("nomorPengambil").setValue(nomorPengambil).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mDatabase.child("DBSampah").child(ekey).child("idPengambil").setValue(idPengambil).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Intent intent = new Intent(DetailSampahTerbooking.this,MainActivity.class);

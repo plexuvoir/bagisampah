@@ -59,6 +59,7 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
                 db = FirebaseDatabase.getInstance();
                 auth = FirebaseAuth.getInstance();
                 if(listSampah.getUser().equalsIgnoreCase(auth.getCurrentUser().getUid()) && listSampah.getStatus().equalsIgnoreCase("Available")){
+                    /* sampah saya */
                     Log.d(TAG, "onClick: terklik");
                     Log.d(TAG, "onClick: "+ listSampah.getNama());
                     Intent intent = new Intent(v.getContext(), DetailSampahSaya.class);
@@ -66,11 +67,11 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
                     intent.putExtra("namaSampah",listSampah.getNama());
                     intent.putExtra("deskripsiSampah",listSampah.getDeskripsi());
                     intent.putExtra("hargaSampah",listSampah.getHarga());
-                    intent.putExtra("namaUser",listSampah.getNamaUser());
-                    intent.putExtra("kontakUser",listSampah.getNomorTelepon());
                     intent.putExtra("alamatUser",listSampah.getAlamat());
                     intent.putExtra("kategoriSampah",listSampah.getKategori());
                     intent.putExtra("key", listSampah.getKey());
+                    intent.putExtra("uid", listSampah.getUser());
+                    Log.d(TAG, "uidgetuser: "+listSampah.getUser());
                     Log.d(TAG, "key1: "+listSampah.getKey());
                     v.getContext().startActivity(intent);
                 }else if(listSampah.getUser().equalsIgnoreCase(auth.getCurrentUser().getUid()) && listSampah.getStatus().equalsIgnoreCase("Terbooking")){
@@ -79,13 +80,11 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
                     intent.putExtra("namaSampah",listSampah.getNama());
                     intent.putExtra("deskripsiSampah",listSampah.getDeskripsi());
                     intent.putExtra("hargaSampah",listSampah.getHarga());
-                    intent.putExtra("namaUser",listSampah.getNamaUser());
-                    intent.putExtra("kontakUser",listSampah.getNomorTelepon());
                     intent.putExtra("alamatUser",listSampah.getAlamat());
                     intent.putExtra("kategoriSampah",listSampah.getKategori());
                     intent.putExtra("key", listSampah.getKey());
-                    intent.putExtra("namaPengambil", listSampah.getNamaPengambil());
-                    intent.putExtra("nomorPengambil", listSampah.getNomorPengambil());
+                    intent.putExtra("uid", listSampah.getUser());
+                    intent.putExtra("idPengambil", listSampah.getIdPengambil());
                     v.getContext().startActivity(intent);
                 }else if(listSampah.getIdPengambil().equalsIgnoreCase(auth.getCurrentUser().getUid()) && listSampah.getStatus().equalsIgnoreCase("Terbooking")){
                     Intent intent = new Intent(v.getContext(),DetailSampahTerbooking.class);
@@ -93,13 +92,11 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
                     intent.putExtra("namaSampah",listSampah.getNama());
                     intent.putExtra("deskripsiSampah",listSampah.getDeskripsi());
                     intent.putExtra("hargaSampah",listSampah.getHarga());
-                    intent.putExtra("namaUser",listSampah.getNamaUser());
-                    intent.putExtra("kontakUser",listSampah.getNomorTelepon());
                     intent.putExtra("alamatUser",listSampah.getAlamat());
                     intent.putExtra("kategoriSampah",listSampah.getKategori());
                     intent.putExtra("key", listSampah.getKey());
-                    intent.putExtra("namaPengambil", listSampah.getNamaPengambil());
-                    intent.putExtra("nomorPengambil", listSampah.getNomorPengambil());
+                    intent.putExtra("uid", listSampah.getUser());
+                    intent.putExtra("idPengambil", listSampah.getIdPengambil());
                     v.getContext().startActivity(intent);
                 }
                 else{
@@ -111,8 +108,6 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
                     intent.putExtra("deskripsiSampah",listSampah.getDeskripsi());
                     intent.putExtra("kategoriSampah",listSampah.getKategori());
                     intent.putExtra("hargaSampah",listSampah.getHarga());
-                    intent.putExtra("namaUser",listSampah.getNamaUser());
-                    intent.putExtra("kontakUser",listSampah.getNomorTelepon());
                     intent.putExtra("alamatUser",listSampah.getAlamat());
                     intent.putExtra("key", listSampah.getKey());
                     Log.d(TAG, "key2: "+listSampah.getKey());

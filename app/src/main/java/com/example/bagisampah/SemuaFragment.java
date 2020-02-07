@@ -56,6 +56,7 @@ public class SemuaFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
+
         db.getReference("DBSampah").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -73,13 +74,9 @@ public class SemuaFragment extends Fragment {
                         String jarak = sn.child("jarakSampah").getValue(String.class);
                         String alamat = sn.child("alamatSampah").getValue(String.class);
                         String uid = sn.child("user").getValue(String.class);
-                        String namaUser = sn.child("namaUser").getValue(String.class);
-                        String nomorTelepon = sn.child("nomorTelepon").getValue(String.class);
                         String key = sn.getKey();
-                        String namaPengambil = sn.child("namaPengambil").getValue(String.class);
-                        String nomorPengambil = sn.child("nomorPengambil").getValue(String.class);
                         String idPengambil = sn.child("idPengambil").getValue(String.class);
-                        list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, namaUser, nomorTelepon, key, idPengambil, namaPengambil, nomorPengambil));
+                        list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, key, idPengambil));
                         Collections.reverse(list_sampahs);
                     }
                 }

@@ -2,6 +2,7 @@ package com.example.bagisampah;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
@@ -22,10 +26,10 @@ public class DetailSampahTerbookingSaya extends AppCompatActivity {
     private Button btnWhatsapp;
     private DatabaseReference mDatabase;
     private FirebaseAuth auth;
-    private String namaUserString, nomorTeleponString;
+    private String namaUserString, nomorTeleponString, namaPengambilString, nomorPengambilString;
     private FirebaseDatabase db;
-    private String eimgSampah, enamaPengambil, enomorPengambil;
-    private String enamaSampah, edeskripsiSampah, ehargaSampah, enamaUser, ekontakUser, ealamatUser, ekontakUserWithoutZero, ekey, ekategoriSampah, euid;
+    private String eimgSampah;
+    private String enamaSampah, edeskripsiSampah, ehargaSampah, ealamatUser, ekontakUserWithoutZero, ekey, ekategoriSampah, euid, eidPengambil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,32 +62,64 @@ public class DetailSampahTerbookingSaya extends AppCompatActivity {
             enamaSampah = extras.getString("namaSampah");
             edeskripsiSampah = extras.getString("deskripsiSampah");
             ehargaSampah = extras.getString("hargaSampah");
-            enamaUser = extras.getString("namaUser");
-            ekontakUser = extras.getString("kontakUser");
             ealamatUser = extras.getString("alamatUser");
             ekategoriSampah = extras.getString("kategoriSampah");
             ekey = extras.getString("key");
             euid = extras.getString("uid");
-            enamaPengambil = extras.getString("namaPengambil");
-            enomorPengambil = extras.getString("nomorPengambil");
+            eidPengambil = extras.getString("idPengambil");
+
+            db.getReference("Users").child(euid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String mNamaUser = dataSnapshot.child("nama").getValue(String.class);
+                    namaUserString=mNamaUser;
+                    String nomorTelepon = dataSnapshot.child("nomorHP").getValue(String.class);
+                    nomorTeleponString= nomorTelepon;
+                    namaUser.setText(namaUserString);
+                    kontakUser.setText(nomorTeleponString);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+            db.getReference("Users").child(eidPengambil).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String namaUser = dataSnapshot.child("nama").getValue(String.class);
+                    namaPengambilString=namaUser;
+                    String nomorTelepon = dataSnapshot.child("nomorHP").getValue(String.class);
+                    nomorPengambilString= nomorTelepon;
+                    namaPengambil.setText(namaPengambilString);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
 
         Picasso.get().load(eimgSampah).into(imgSampah);
         namaSampah.setText(enamaSampah);
         deskripsiSampah.setText(edeskripsiSampah);
         hargaSampah.setText("Rp."+ehargaSampah);
-        namaUser.setText(enamaUser);
-        kontakUser.setText(ekontakUser);
         alamatUser.setText(ealamatUser);
-        namaPengambil.setText(enamaPengambil);
+
+
+
+
+
 
         btnWhatsapp.setOnClickListener(view -> {
             try {
                 String text = "Hai, Apakah sampah jadi diambil?";// Replace with your message.
-                if (enomorPengambil.charAt(0)==0){
-                    ekontakUserWithoutZero = enomorPengambil.substring(1);
+                if (nomorPengambilString.charAt(0)==0){
+                    ekontakUserWithoutZero = nomorPengambilString.substring(1);
                 } else {
-                    ekontakUserWithoutZero = enomorPengambil;
+                    ekontakUserWithoutZero = nomorPengambilString;
                 }
                 String toNumber = "62"+ekontakUserWithoutZero; // Replace with mobile phone number without +Sign or leading zeros, but with country cod
                 //Suppose your country is India and your phone number is “xxxxxxxxxx”, then you need to send “91xxxxxxxxxx”.
