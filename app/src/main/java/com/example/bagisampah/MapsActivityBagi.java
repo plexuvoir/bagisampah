@@ -71,15 +71,21 @@ public class MapsActivityBagi extends FragmentActivity implements OnMapReadyCall
 //            editor.putLong("long", Double.doubleToRawLongBits(longSelected));
 //            editor.putString("address",address );
 //            editor.commit();
+
+//            Intent intent = new Intent(MapsActivityBagi.this, MainActivity.class);
+//            intent.putExtra("fragmentToLoad", R.id.nav_bagi_sampah);
             DataBagiSampah.setAlamatSampah(address);
-            Intent intent = new Intent(MapsActivityBagi.this, MainActivity.class);
-            intent.putExtra("fragmentToLoad", R.id.nav_bagi_sampah);
-            startActivity(intent);
+            DataEditSampah.setAlamatSampah(address);
+            onBackPressed();
             finish();
 
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     /**
      * Manipulates the map once available.

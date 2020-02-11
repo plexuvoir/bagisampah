@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -72,6 +73,7 @@ public class BagiSampahFragment extends Fragment {
     private ImageView imgUploadSampah;
     private Uri filepath, filepathGlobal;
     private final int PICK_IMAGE_REQUEST = 71;
+    public static final int KITKAT_VALUE = 1002;
 
     //Firebase storage
     FirebaseStorage imgStorage;
@@ -94,6 +96,7 @@ public class BagiSampahFragment extends Fragment {
         imgMaps = inflate.findViewById(R.id.imgMaps);
         imgStorage = FirebaseStorage.getInstance();
         imgStorageReference = imgStorage.getReference();
+
 
 
         db.getReference("Users").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
@@ -119,7 +122,7 @@ public class BagiSampahFragment extends Fragment {
 //                DataBagiSampah.setImgSampah(filepath);
 //            }
             startActivity(new Intent(getContext(), MapsActivityBagi.class));
-            getActivity().finish();
+//            getActivity().finish();
         });
 
         //image click
@@ -143,6 +146,8 @@ public class BagiSampahFragment extends Fragment {
 
 
 
+
+
         btn_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,11 +156,15 @@ public class BagiSampahFragment extends Fragment {
                     Log.d(TAG, "filepathnull: "+filepath);
 
                 }
-                uploadImage();
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-
+                if (namaSampah.getText().toString().equalsIgnoreCase("")|| deskripsiSampah.getText().toString().equalsIgnoreCase("")  || alamatSampah.getText().toString().equalsIgnoreCase("")|| hargaSampah.getText().toString().equalsIgnoreCase("")){
+                    Toast.makeText(getContext(), "Mohon isi semua form yang tersedia.", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "onClick: masuk if");
+                } else {
+                    uploadImage();
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
+                    getActivity().finish();
+                }
             }
         });
         return inflate;
@@ -195,11 +204,11 @@ public class BagiSampahFragment extends Fragment {
 
 
 
+
+
     private void uploadImage(){
         if(filepath !=null){
             final ProgressDialog progressDialog = new ProgressDialog(getActivity());
-
-
             final StorageReference ref = imgStorageReference.child("images/"+ UUID.randomUUID().toString());
             ref.putFile(filepath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -218,6 +227,7 @@ public class BagiSampahFragment extends Fragment {
 
         }
     }
+
 
     @Override
     public void onDestroyView() {
@@ -306,6 +316,11 @@ public class BagiSampahFragment extends Fragment {
         DataBagiSampah.setHargaSampah(null);
         DataBagiSampah.setDeskripsiSampah(null);
         DataBagiSampah.setImgSampah(null);
+        DataEditSampah.setAlamatSampah(null);
+        namaSampah.setText("");
+        deskripsiSampah.setText("");
+        alamatSampah.setText("");
+        hargaSampah.setText("");
 
     }
 }

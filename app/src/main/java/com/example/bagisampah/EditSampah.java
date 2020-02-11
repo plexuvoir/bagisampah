@@ -65,6 +65,8 @@ public class EditSampah extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("ALAMATSAMPAHONCREATe", "onCreate: "+DataEditSampah.getAlamatSampah());
+        DataEditSampah.setAlamatSampah(null);
         setContentView(R.layout.activity_edit_sampah);
         namaSampah = findViewById(R.id.namaSampah);
         deskripsiSampah = findViewById(R.id.deskripsiSampah);
@@ -81,7 +83,6 @@ public class EditSampah extends AppCompatActivity {
         imgStorageReference = imgStorage.getReference();
 
 
-
         Bundle extras = getIntent().getExtras();
 
         if (extras != null){
@@ -94,7 +95,6 @@ public class EditSampah extends AppCompatActivity {
             ekey = extras.getString("key");
             Log.d("ekeyy", ekey);
             imgLink = eimgSampah;
-
             namaSampah.setText(enamaSampah);
             deskripsiSampah.setText(edeskripsiSampah);
             hargaSampah.setText(ehargaSampah);
@@ -115,6 +115,8 @@ public class EditSampah extends AppCompatActivity {
 //            }
         }
 
+
+
         //image click
         imgUploadSampah.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,10 +134,24 @@ public class EditSampah extends AppCompatActivity {
             }
         });
 
+        imgMaps.setOnClickListener(view -> {
+
+//            if (filepath!=null){
+//                DataEditSampah.setImgSampah(filepath);
+//            }
+            startActivity(new Intent(EditSampah.this, MapsActivityBagi.class));
+//            getActivity().finish();
+        });
+
         btn_simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                uploadImage();
+                if (namaSampah.getText().toString().equalsIgnoreCase("")|| deskripsiSampah.getText().toString().equalsIgnoreCase("")  || alamatSampah.getText().toString().equalsIgnoreCase("")|| hargaSampah.getText().toString().equalsIgnoreCase("")){
+                    Toast.makeText(EditSampah.this, "Mohon isi semua form yang tersedia.", Toast.LENGTH_SHORT).show();
+                } else {
+                    uploadImage();
+                }
+
 
 
 //                Intent intent = new Intent(getContext(), MainActivity.class);
@@ -200,6 +216,49 @@ public class EditSampah extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (DataEditSampah.getAlamatSampah()!=null){
+            alamatSampah.setText(DataEditSampah.getAlamatSampah());
+            DataEditSampah.setAlamatSampah(null);
+            Log.d("ALAMATSAMPAH", "onResume: "+DataEditSampah.getAlamatSampah());
+        } else {
+            alamatSampah.setText(ealamatUser);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        setData();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        setData();
+    }
+
+    @Override
+    public void onBackPressed() {
+        DataEditSampah.setNamaSampah(null);
+        DataEditSampah.setAlamatSampah(null);
+        DataEditSampah.setHargaSampah(null);
+        DataEditSampah.setDeskripsiSampah(null);
+        DataEditSampah.setImgSampah(null);
+        super.onBackPressed();
+    }
+
+    private void setData (){
+        DataEditSampah.setNamaSampah(namaSampah.getText().toString());
+        DataEditSampah.setDeskripsiSampah(deskripsiSampah.getText().toString());
+        DataEditSampah.setKategoriSampah(spinnerKategori.getSelectedItem().toString());
+        DataEditSampah.setAlamatSampah(alamatSampah.getText().toString());
+        DataEditSampah.setHargaSampah(hargaSampah.getText().toString());
+
+    }
+
     private void uploadData(){
         String imgString = imgLink;
         String namaSampahString = namaSampah.getText().toString();
@@ -233,6 +292,13 @@ public class EditSampah extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 Intent intent = new Intent(EditSampah.this,MainActivity.class);
                 intent.putExtra("fragmentToLoad",R.id.nav_sampah_saya);
+                DataEditSampah.setNamaSampah(null);
+                DataEditSampah.setAlamatSampah(null);
+                DataEditSampah.setHargaSampah(null);
+                DataEditSampah.setDeskripsiSampah(null);
+                DataEditSampah.setImgSampah(null);
+                DataBagiSampah.setAlamatSampah(null);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 //startActivity(new Intent(EditSampah.this, DetailSampahSaya.class));
 
