@@ -29,7 +29,8 @@ public class DetailSampahTerbooking extends AppCompatActivity {
     private FirebaseAuth auth;
     private String namaUserString, nomorTeleponString;
     private FirebaseDatabase db;
-    private String eimgSampah;
+    private ImageView imgGmap;
+    private String eimgSampah, elat, elong;
     private String enamaSampah, edeskripsiSampah, ehargaSampah, ealamatUser, ekontakUserWithoutZero, ekey, ekategoriSampah, euid;
 
     @Override
@@ -48,6 +49,7 @@ public class DetailSampahTerbooking extends AppCompatActivity {
         alamatUser = findViewById(R.id.txt_alamat_user);
         btnWhatsapp = findViewById(R.id.btn_Whatsapp);
         btnCancel = findViewById(R.id.btn_cancel);
+        imgGmap = findViewById(R.id.view_gmap);
 
         db = FirebaseDatabase.getInstance();
 
@@ -66,6 +68,9 @@ public class DetailSampahTerbooking extends AppCompatActivity {
             ekategoriSampah = extras.getString("kategoriSampah");
             ekey = extras.getString("key");
             euid = extras.getString("uid");
+            elat = extras.getString("latLoc");
+            Log.d("elat", "onCreate: "+elat);
+            elong = extras.getString("longLoc");
 
             db.getReference("Users").child(euid).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -87,6 +92,9 @@ public class DetailSampahTerbooking extends AppCompatActivity {
 
         }
 
+
+        String URLgmap = "http://maps.google.com/maps/api/staticmap?center=" + elat + "," + elong + "&markers=color:red%7Clabel:%7C"+ elat +","+ elong +"&zoom=15&size=600x400&sensor=false&key=AIzaSyCZacxowaOXMkI9Ryx8nSRescj8e60AL44";
+        Picasso.get().load(URLgmap).into(imgGmap);
         Picasso.get().load(eimgSampah).into(imgSampah);
         namaSampah.setText(enamaSampah);
         deskripsiSampah.setText(edeskripsiSampah);
@@ -114,6 +122,10 @@ public class DetailSampahTerbooking extends AppCompatActivity {
             }
         });
 
+        imgGmap.setOnClickListener(view -> {
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?daddr="+elat+","+elong+""));
+            startActivity(intent);
+        });
 
 
 

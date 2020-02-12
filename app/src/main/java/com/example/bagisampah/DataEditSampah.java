@@ -4,7 +4,30 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 
 public class DataEditSampah {
-    private static String namaSampah, deskripsiSampah, kategoriSampah, alamatSampah, hargaSampah;
+    private static String namaSampah;
+    private static String deskripsiSampah;
+    private static String kategoriSampah;
+    private static String alamatSampah;
+    private static String hargaSampah;
+    private static String latLoc;
+
+    public static String getLatLoc() {
+        return latLoc;
+    }
+
+    public static void setLatLoc(String latLoc) {
+        DataEditSampah.latLoc = latLoc;
+    }
+
+    public static String getLongLoc() {
+        return longLoc;
+    }
+
+    public static void setLongLoc(String longLoc) {
+        DataEditSampah.longLoc = longLoc;
+    }
+
+    private static String longLoc;
     private static Uri imgSampahUri;
     private static Bitmap imgSampah;
 

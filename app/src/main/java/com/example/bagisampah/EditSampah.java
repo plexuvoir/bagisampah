@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -52,7 +53,7 @@ public class EditSampah extends AppCompatActivity {
     private static String imgLink = "belum masuk";
     private ImageView imgMaps;
     private String  eAddress, ekey;
-    private double eLatitude, eLongitude;
+    private String elat, elong;
 
     FirebaseStorage imgStorage;
     StorageReference imgStorageReference;
@@ -67,6 +68,10 @@ public class EditSampah extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.d("ALAMATSAMPAHONCREATe", "onCreate: "+DataEditSampah.getAlamatSampah());
         DataEditSampah.setAlamatSampah(null);
+        DataBagiSampah.setLatLoc(null);
+        DataBagiSampah.setLongLoc(null);
+        DataEditSampah.setLatLoc(null);
+        DataEditSampah.setLongLoc(null);
         setContentView(R.layout.activity_edit_sampah);
         namaSampah = findViewById(R.id.namaSampah);
         deskripsiSampah = findViewById(R.id.deskripsiSampah);
@@ -93,6 +98,9 @@ public class EditSampah extends AppCompatActivity {
             ealamatUser = extras.getString("alamatUser");
             ekategori = extras.getString("kategoriSampah");
             ekey = extras.getString("key");
+            elat = extras.getString("latLoc");
+            elong = extras.getString("longLoc");
+            Log.d("elat", ""+elat);
             Log.d("ekeyy", ekey);
             imgLink = eimgSampah;
             namaSampah.setText(enamaSampah);
@@ -247,6 +255,10 @@ public class EditSampah extends AppCompatActivity {
         DataEditSampah.setHargaSampah(null);
         DataEditSampah.setDeskripsiSampah(null);
         DataEditSampah.setImgSampah(null);
+        DataBagiSampah.setLatLoc(null);
+        DataBagiSampah.setLongLoc(null);
+        DataEditSampah.setLatLoc(null);
+        DataEditSampah.setLongLoc(null);
         super.onBackPressed();
     }
 
@@ -260,12 +272,17 @@ public class EditSampah extends AppCompatActivity {
     }
 
     private void uploadData(){
+        if (DataEditSampah.getLatLoc()!=null){
+            elat = DataEditSampah.getLatLoc();
+            elong = DataEditSampah.getLongLoc();
+        }
         String imgString = imgLink;
         String namaSampahString = namaSampah.getText().toString();
         String deskripsiSampahString = deskripsiSampah.getText().toString();
         String kategoriSampahString = spinnerKategori.getSelectedItem().toString();
-        String latlocSampahString = "Latloc Sampah 0";
-        String longlocSampahString = "Longloc Sampah 0";
+        String latlocSampahString = elat;
+        String longlocSampahString = elong;
+        Log.d("elatupdate", elat);
         String hargaSampahString = hargaSampah.getText().toString();
         String statusSampahString = "Available";
         String jarakSampahString = "Jarak Sampah 0";
@@ -298,6 +315,10 @@ public class EditSampah extends AppCompatActivity {
                 DataEditSampah.setDeskripsiSampah(null);
                 DataEditSampah.setImgSampah(null);
                 DataBagiSampah.setAlamatSampah(null);
+                DataBagiSampah.setLatLoc(null);
+                DataBagiSampah.setLongLoc(null);
+                DataEditSampah.setLatLoc(null);
+                DataEditSampah.setLongLoc(null);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 //startActivity(new Intent(EditSampah.this, DetailSampahSaya.class));

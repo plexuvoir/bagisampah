@@ -132,6 +132,7 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/view_gmap"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:src="@drawable/deletedummymap"

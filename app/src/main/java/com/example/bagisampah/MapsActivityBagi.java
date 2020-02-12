@@ -155,6 +155,11 @@ public class MapsActivityBagi extends FragmentActivity implements OnMapReadyCall
 
                 latSelected = latLng.latitude;
                 longSelected = latLng.longitude;
+                DataBagiSampah.setLatLoc(String.valueOf(latLng.latitude));
+                DataBagiSampah.setLongLoc(String.valueOf(latLng.longitude));
+                DataEditSampah.setLatLoc(String.valueOf(latLng.latitude));
+                DataEditSampah.setLongLoc(String.valueOf(latLng.longitude));
+
 
 
 

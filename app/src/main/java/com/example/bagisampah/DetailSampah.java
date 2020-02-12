@@ -33,7 +33,7 @@ public class DetailSampah extends AppCompatActivity {
     private FirebaseAuth auth;
     private String namaUserString, nomorTeleponString;
     private FirebaseDatabase db;
-    private String eimgSampah,elat,elot;
+    private String eimgSampah,elat,elong;
     private String enamaSampah, edeskripsiSampah, ehargaSampah, ealamatUser, ekontakUserWithoutZero, ekey, ekategoriSampah, euid;
 
     @Override
@@ -80,10 +80,10 @@ public class DetailSampah extends AppCompatActivity {
             Log.d("ekey", "onCreate: "+ekey);
             euid = extras.getString("uid");
             Log.d("euid", "onCreate: "+euid);
-            elat = extras.getString("latlocSampah");
+            elat = extras.getString("latLoc");
             Log.d("elat", "onCreate: "+elat);
-            elot = extras.getString("longlocSampah");
-            Log.d("elot", "onCreate: "+elot);
+            elong = extras.getString("longLoc");
+            Log.d("elot", "onCreate: "+elong);
 
             db.getReference("Users").child(euid).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -103,9 +103,13 @@ public class DetailSampah extends AppCompatActivity {
             });
         }
 
+        imgGmap.setOnClickListener(view -> {
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("http://maps.google.com/maps?daddr="+elat+","+elong+""));
+            startActivity(intent);
+        });
 
 
-        Picasso.get().load(eimgSampah).into(imgSampah);
+
         namaSampah.setText(enamaSampah);
         deskripsiSampah.setText(edeskripsiSampah);
         hargaSampah.setText("Rp."+ehargaSampah);
@@ -113,8 +117,9 @@ public class DetailSampah extends AppCompatActivity {
 
         //gmap view
 
-        String URLgmap = "http://maps.google.com/maps/api/staticmap?center=" +elat + "," + elot + "&zoom=15&size=600x400&sensor=false";
+        String URLgmap = "http://maps.google.com/maps/api/staticmap?center=" + elat + "," + elong + "&markers=color:red%7Clabel:%7C"+ elat +","+ elong +"&zoom=15&size=600x400&sensor=false&key=AIzaSyCZacxowaOXMkI9Ryx8nSRescj8e60AL44";
         Picasso.get().load(URLgmap).into(imgGmap);
+        Picasso.get().load(eimgSampah).into(imgSampah);
 
         btnWhatsapp.setOnClickListener(view -> {
             try {

@@ -156,7 +156,8 @@ public class BagiSampahFragment extends Fragment {
                     Log.d(TAG, "filepathnull: "+filepath);
 
                 }
-                if (namaSampah.getText().toString().equalsIgnoreCase("")|| deskripsiSampah.getText().toString().equalsIgnoreCase("")  || alamatSampah.getText().toString().equalsIgnoreCase("")|| hargaSampah.getText().toString().equalsIgnoreCase("")){
+                Log.d(TAG, "GETLATLOC "+DataBagiSampah.getLatLoc());
+                if (namaSampah.getText().toString().equalsIgnoreCase("")|| deskripsiSampah.getText().toString().equalsIgnoreCase("")  || alamatSampah.getText().toString().equalsIgnoreCase("")|| hargaSampah.getText().toString().equalsIgnoreCase("") || DataBagiSampah.getLatLoc()==null){
                     Toast.makeText(getContext(), "Mohon isi semua form yang tersedia.", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onClick: masuk if");
                 } else {
@@ -282,8 +283,8 @@ public class BagiSampahFragment extends Fragment {
         String namaSampahString = namaSampah.getText().toString();
         String deskripsiSampahString = deskripsiSampah.getText().toString();
         String kategoriSampahString = spinnerKategori.getSelectedItem().toString();
-        String latlocSampahString = "Latloc Sampah 0";
-        String longlocSampahString = "Longloc Sampah 0";
+        String latlocSampahString = DataBagiSampah.getLatLoc();
+        String longlocSampahString = DataBagiSampah.getLongLoc();
         String hargaSampahString = hargaSampah.getText().toString();
         String statusSampahString = "Available";
         String jarakSampahString = "0";
@@ -310,17 +311,26 @@ public class BagiSampahFragment extends Fragment {
         dataMap.put("idPengambil", idPengambil);
 //        dataMap.put("namaPengambil", namaPengambil);
 //        dataMap.put("nomorPengambil", nomorPengambil);
-        mDatabase.child("DBSampah").push().setValue(dataMap);
-        DataBagiSampah.setNamaSampah(null);
-        DataBagiSampah.setAlamatSampah(null);
-        DataBagiSampah.setHargaSampah(null);
-        DataBagiSampah.setDeskripsiSampah(null);
-        DataBagiSampah.setImgSampah(null);
-        DataEditSampah.setAlamatSampah(null);
-        namaSampah.setText("");
-        deskripsiSampah.setText("");
-        alamatSampah.setText("");
-        hargaSampah.setText("");
+        mDatabase.child("DBSampah").push().setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                DataBagiSampah.setNamaSampah(null);
+                DataBagiSampah.setAlamatSampah(null);
+                DataBagiSampah.setHargaSampah(null);
+                DataBagiSampah.setDeskripsiSampah(null);
+                DataBagiSampah.setImgSampah(null);
+                DataEditSampah.setAlamatSampah(null);
+                DataBagiSampah.setLatLoc(null);
+                DataBagiSampah.setLongLoc(null);
+                DataEditSampah.setLatLoc(null);
+                DataEditSampah.setLongLoc(null);
+                namaSampah.setText("");
+                deskripsiSampah.setText("");
+                alamatSampah.setText("");
+                hargaSampah.setText("");
+            }
+        });
+
 
     }
 }

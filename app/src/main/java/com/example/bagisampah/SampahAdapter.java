@@ -77,6 +77,8 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
                     intent.putExtra("kategoriSampah",listSampah.getKategori());
                     intent.putExtra("key", listSampah.getKey());
                     intent.putExtra("uid", listSampah.getUser());
+                    intent.putExtra("latLoc", listSampah.getLatloc());
+                    intent.putExtra("longLoc", listSampah.getLongloc());
                     Log.d(TAG, "uidgetuser: "+listSampah.getUser());
                     Log.d(TAG, "key1: "+listSampah.getKey());
                     v.getContext().startActivity(intent);
@@ -91,6 +93,8 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
                     intent.putExtra("key", listSampah.getKey());
                     intent.putExtra("uid", listSampah.getUser());
                     intent.putExtra("idPengambil", listSampah.getIdPengambil());
+                    intent.putExtra("latLoc", listSampah.getLatloc());
+                    intent.putExtra("longLoc", listSampah.getLongloc());
                     v.getContext().startActivity(intent);
                 }else if(listSampah.getIdPengambil().equalsIgnoreCase(auth.getCurrentUser().getUid()) && listSampah.getStatus().equalsIgnoreCase("Terbooking")){
                     Intent intent = new Intent(v.getContext(),DetailSampahTerbooking.class);
@@ -103,6 +107,8 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
                     intent.putExtra("key", listSampah.getKey());
                     intent.putExtra("uid", listSampah.getUser());
                     intent.putExtra("idPengambil", listSampah.getIdPengambil());
+                    intent.putExtra("latLoc", listSampah.getLatloc());
+                    intent.putExtra("longLoc", listSampah.getLongloc());
                     v.getContext().startActivity(intent);
                 }
                 else{
@@ -116,6 +122,8 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
                     intent.putExtra("hargaSampah",listSampah.getHarga());
                     intent.putExtra("alamatUser",listSampah.getAlamat());
                     intent.putExtra("key", listSampah.getKey());
+                    intent.putExtra("latLoc", listSampah.getLatloc());
+                    intent.putExtra("longLoc", listSampah.getLongloc());
                     Log.d(TAG, "key2: "+listSampah.getKey());
                     intent.putExtra("uid", listSampah.getUser());
                     v.getContext().startActivity(intent);
