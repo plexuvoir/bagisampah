@@ -26,14 +26,14 @@ import java.util.HashMap;
 
 public class DetailSampah extends AppCompatActivity {
 
-    private ImageView imgSampah;
+    private ImageView imgSampah, imgGmap;
     private TextView namaSampah, deskripsiSampah, hargaSampah, namaUser, kontakUser, alamatUser;
     private Button btnWhatsapp, btnAmbil;
     private DatabaseReference mDatabase;
     private FirebaseAuth auth;
     private String namaUserString, nomorTeleponString;
     private FirebaseDatabase db;
-    private String eimgSampah;
+    private String eimgSampah,elat,elot;
     private String enamaSampah, edeskripsiSampah, ehargaSampah, ealamatUser, ekontakUserWithoutZero, ekey, ekategoriSampah, euid;
 
     @Override
@@ -55,6 +55,7 @@ public class DetailSampah extends AppCompatActivity {
         alamatUser = findViewById(R.id.txt_alamat_user);
         btnWhatsapp = findViewById(R.id.btn_Whatsapp);
         btnAmbil = findViewById(R.id.btn_ambil);
+        imgGmap = findViewById(R.id.view_gmap);
 
         db = FirebaseDatabase.getInstance();
 
@@ -79,6 +80,10 @@ public class DetailSampah extends AppCompatActivity {
             Log.d("ekey", "onCreate: "+ekey);
             euid = extras.getString("uid");
             Log.d("euid", "onCreate: "+euid);
+            elat = extras.getString("latlocSampah");
+            Log.d("elat", "onCreate: "+elat);
+            elot = extras.getString("longlocSampah");
+            Log.d("elot", "onCreate: "+elot);
 
             db.getReference("Users").child(euid).addValueEventListener(new ValueEventListener() {
                 @Override
@@ -105,6 +110,11 @@ public class DetailSampah extends AppCompatActivity {
         deskripsiSampah.setText(edeskripsiSampah);
         hargaSampah.setText("Rp."+ehargaSampah);
         alamatUser.setText(ealamatUser);
+
+        //gmap view
+
+        String URLgmap = "http://maps.google.com/maps/api/staticmap?center=" +elat + "," + elot + "&zoom=15&size=600x400&sensor=false";
+        Picasso.get().load(URLgmap).into(imgGmap);
 
         btnWhatsapp.setOnClickListener(view -> {
             try {
