@@ -1,7 +1,9 @@
 package com.example.bagisampah;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,12 +20,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.ncorti.slidetoact.SlideToActView;
 import com.squareup.picasso.Picasso;
+
+
 
 public class DetailSampahTerbookingSaya extends AppCompatActivity {
     private ImageView imgSampah;
     private TextView namaSampah, deskripsiSampah, hargaSampah, namaUser, kontakUser, alamatUser, namaPengambil;
     private Button btnWhatsapp;
+    private SlideToActView swipeSelesai;
     private DatabaseReference mDatabase;
     private FirebaseAuth auth;
     private String namaUserString, nomorTeleponString, namaPengambilString, nomorPengambilString;
@@ -50,6 +56,22 @@ public class DetailSampahTerbookingSaya extends AppCompatActivity {
         btnWhatsapp = findViewById(R.id.btn_Whatsapp);
         namaPengambil = findViewById(R.id.txt_nama_pengambil);
         imgGmap = findViewById(R.id.view_gmap);
+        swipeSelesai = findViewById(R.id.swipe_selesai);
+
+        swipeSelesai.setAnimateCompletion(true);
+        swipeSelesai.setOnSlideCompleteListener(slideToActView -> {
+
+            db.getReference("DBSampah").child(ekey).child("statusSampah").setValue("Selesai");
+
+
+            Intent intent = new Intent(DetailSampahTerbookingSaya.this,MainActivity.class);
+            intent.putExtra("fragmentToLoad",R.id.nav_sampah_saya);
+            startActivity(intent);
+        });
+
+
+
+
 
         db = FirebaseDatabase.getInstance();
 

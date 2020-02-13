@@ -54,7 +54,7 @@ public class SampahSayaFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list_sampahs.clear();
                 for (DataSnapshot sn : dataSnapshot.getChildren()){
-                    if (sn.child("user").getValue(String.class).equalsIgnoreCase(auth.getCurrentUser().getUid())){
+                    if (sn.child("user").getValue(String.class).equalsIgnoreCase(auth.getCurrentUser().getUid()) && !sn.child("statusSampah").getValue(String.class).equalsIgnoreCase("Selesai")){
                         String img = sn.child("img").getValue(String.class);
                         String nama = sn.child("namaSampah").getValue(String.class);
                         String deskripsi = sn.child("deskripsiSampah").getValue(String.class);

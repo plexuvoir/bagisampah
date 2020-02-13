@@ -14,7 +14,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:paddingTop="8dp"
-            android:paddingHorizontal="14dp">
+            android:paddingHorizontal="14dp"
+            android:paddingBottom="15dp">
             <ImageView
                 android:id="@+id/img_sampah"
                 android:layout_width="match_parent"
@@ -176,7 +177,26 @@
                 android:layout_height="150dp"
                 android:src="@drawable/deletedummymap"
                 android:scaleType="centerCrop"
+                android:layout_marginBottom="20dp"
                 />
+
+            <com.ncorti.slidetoact.SlideToActView
+                android:id="@+id/swipe_selesai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:elevation="6dp"
+                app:area_margin="4dp"
+                app:outer_color="@color/colorPrimary"
+                app:inner_color="#FFFFFF"
+                app:text_size="18sp"
+                app:text_style="bold"
+                app:slider_height="55dp"
+                app:slider_locked="false"
+                app:text="Selesaikan Transaksi" />
+
+
+
 
 
         </LinearLayout>
