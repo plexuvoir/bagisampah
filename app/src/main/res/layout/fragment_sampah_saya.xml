@@ -6,5 +6,15 @@
         android:layout_height="match_parent"
         android:id="@+id/recycler_sampah">
     </android.support.v7.widget.RecyclerView>
+    <TextView
+        android:layout_centerInParent="true"
+        android:id="@+id/txt_kosong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Anda belum memiliki sampah."
+        android:paddingHorizontal="15dp"
+        android:textColor="#212121"
+        android:textSize="20sp"
+        android:gravity="center"/>
 
 </RelativeLayout>

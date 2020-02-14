@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +36,7 @@ public class TerbookingFragment extends Fragment {
     HashMap<String,String> sampah = new HashMap<>();
     private SampahAdapter adapter;
     private DatabaseReference mDatabase;
+    private TextView txtKosong;
 
     @Nullable
     @Override
@@ -47,6 +49,8 @@ public class TerbookingFragment extends Fragment {
         db = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        txtKosong = inflate.findViewById(R.id.txt_kosong);
+        txtKosong.setVisibility(View.INVISIBLE);
 
         db.getReference("DBSampah").addValueEventListener(new ValueEventListener() {
             @Override
@@ -71,9 +75,9 @@ public class TerbookingFragment extends Fragment {
                         Collections.reverse(list_sampahs);
                     }
                 }
-//                if (list_sampahs==null){
-//                    Toast.makeText(getContext(), "Berhasil Login", Toast.LENGTH_SHORT).show();
-//                }
+                if (list_sampahs.size()==0){
+                    txtKosong.setVisibility(View.VISIBLE);
+                }
                 adapter = new SampahAdapter(getContext(), list_sampahs);
                 recycler_sampah.setAdapter(adapter);
             }

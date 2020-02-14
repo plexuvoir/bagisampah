@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +33,7 @@ public class SampahSayaFragment extends Fragment {
     HashMap<String,String> sampah = new HashMap<>();
     private SampahAdapter adapter;
     private DatabaseReference mDatabase;
+    private TextView txtKosong;
 
     @Nullable
     @Override
@@ -44,6 +46,8 @@ public class SampahSayaFragment extends Fragment {
         db = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        txtKosong = inflate.findViewById(R.id.txt_kosong);
+        txtKosong.setVisibility(View.INVISIBLE);
 
 
 
@@ -54,7 +58,7 @@ public class SampahSayaFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list_sampahs.clear();
                 for (DataSnapshot sn : dataSnapshot.getChildren()){
-                    if (sn.child("user").getValue(String.class).equalsIgnoreCase(auth.getCurrentUser().getUid()) && !sn.child("statusSampah").getValue(String.class).equalsIgnoreCase("Selesai")){
+                    if (sn.child("user").getValue(String.class).equalsIgnoreCase(auth.getCurrentUser().getUid()) && !sn.child("statusSampah").getValue(String.class).equalsIgnoreCase("Selesai") && !sn.child("statusSampah").getValue(String.class).equalsIgnoreCase("Dihapus")){
                         String img = sn.child("img").getValue(String.class);
                         String nama = sn.child("namaSampah").getValue(String.class);
                         String deskripsi = sn.child("deskripsiSampah").getValue(String.class);
@@ -71,6 +75,9 @@ public class SampahSayaFragment extends Fragment {
                         list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, key, idPengambil));
                         Collections.reverse(list_sampahs);
                     }
+                }
+                if (list_sampahs.size()==0){
+                    txtKosong.setVisibility(View.VISIBLE);
                 }
                 adapter = new SampahAdapter(getContext(), list_sampahs);
                 recycler_sampah.setAdapter(adapter);

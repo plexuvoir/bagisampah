@@ -25,5 +25,13 @@
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
+        <style name="HeaderBar">
+            <item name="android:background">#00B0FF</item>
+        </style>
+
+
+
+
+
 
 </resources>

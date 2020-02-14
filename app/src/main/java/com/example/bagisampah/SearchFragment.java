@@ -11,13 +11,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toolbar;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -46,6 +52,7 @@ public class SearchFragment extends Fragment {
     TabItem tabSemua, tabPlastik, tabKertas, tabTekstil, tabKaleng, tabKaca;
 
 
+
     @Nullable
     @Override
 
@@ -62,6 +69,9 @@ public class SearchFragment extends Fragment {
         tabKaleng = inflate.findViewById(R.id.tabKaleng);
         tabKaca = inflate.findViewById(R.id.tabKaca);
         viewPager = inflate.findViewById(R.id.viewPager);
+
+
+
 
         pageAdapter = new PageAdapter(getFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pageAdapter);

@@ -50,13 +50,52 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
         List_Sampah listSampah = listSampahs.get(position);
         holder.nama.setText(listSampah.getNama());
         holder.deskripsi.setText(listSampah.getDeskripsi());
-        holder.harga.setText("Rp."+listSampah.getHarga());
-        if(listSampah.getHarga().equalsIgnoreCase("0")){
+        db = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+        if (listSampah.getUser().equalsIgnoreCase(auth.getCurrentUser().getUid())&&listSampah.getStatus().equalsIgnoreCase("Available")){
+            holder.harga.setBackgroundResource(R.drawable.bg_jarak_round);
+            holder.harga.setText("Edit");
+            holder.jarak.setBackgroundResource(R.drawable.bg_hapus_round);
+            holder.jarak.setText("Hapus");
+            holder.jarak.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.harga.setOnClickListener(view ->{
+                Intent intent = new Intent(view.getContext(), EditSampah.class);
+                intent.putExtra("imgSampah",listSampah.getImg());
+                intent.putExtra("namaSampah",listSampah.getNama());
+                intent.putExtra("deskripsiSampah",listSampah.getDeskripsi());
+                intent.putExtra("hargaSampah",listSampah.getHarga());
+                intent.putExtra("alamatUser",listSampah.getAlamat());
+                intent.putExtra("kategoriSampah",listSampah.getKategori());
+                intent.putExtra("key", listSampah.getKey());
+                intent.putExtra("uid", listSampah.getUser());
+                intent.putExtra("latLoc", listSampah.getLatloc());
+                intent.putExtra("longLoc", listSampah.getLongloc());
+                Log.d(TAG, "uidgetuser: "+listSampah.getUser());
+                Log.d(TAG, "key1: "+listSampah.getKey());
+                view.getContext().startActivity(intent);
+            } );
+            holder.jarak.setOnClickListener(view -> {
+                db.getReference("DBSampah").child(listSampah.getKey()).child("statusSampah").setValue("Dihapus");
+            });
+        } else if(listSampah.getHarga().equalsIgnoreCase("0")){
             holder.harga.setBackgroundResource(R.drawable.bg_gratis_round);
             holder.harga.setText("Gratis");
             holder.harga.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.jarak.setBackgroundResource(R.drawable.bg_jarak_round);
+            holder.jarak.setText(listSampah.getJarak()+" KM");
+        } else if(listSampah.getUser().equalsIgnoreCase(auth.getCurrentUser().getUid()) && listSampah.getStatus().equalsIgnoreCase("Terbooking")){
+            holder.harga.setVisibility(View.INVISIBLE);
+            holder.jarak.setBackgroundResource(R.drawable.bg_gratis_round);
+            holder.jarak.setTextColor(Color.parseColor("#FFFFFF"));
+            holder.jarak.setText("Terbooking");
+            holder.jarak.setWidth(180);
         }
-        holder.jarak.setText(listSampah.getJarak()+" KM");
+        else {
+            holder.harga.setBackgroundResource(R.drawable.bg_jarak_round);
+            holder.harga.setText("Rp."+listSampah.getHarga());
+            holder.jarak.setBackgroundResource(R.drawable.bg_jarak_round);
+            holder.jarak.setText(listSampah.getJarak()+" KM");
+        }
         Picasso.get().load(listSampah.getImg()).into(holder.imgSampah);
 
         holder.card_sampah.setOnClickListener(new View.OnClickListener() {
