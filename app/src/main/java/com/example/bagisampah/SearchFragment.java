@@ -1,5 +1,6 @@
 package com.example.bagisampah;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -70,7 +71,7 @@ public class SearchFragment extends Fragment {
         tabKaca = inflate.findViewById(R.id.tabKaca);
         viewPager = inflate.findViewById(R.id.viewPager);
 
-
+        setHasOptionsMenu(true);
 
 
         pageAdapter = new PageAdapter(getFragmentManager(), tabLayout.getTabCount());
@@ -96,6 +97,28 @@ public class SearchFragment extends Fragment {
         return inflate;
 
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_filter:
+//                Intent favorite = new Intent(getContext(), .class);
+//                startActivity(favorite);
+                return true;
+
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
