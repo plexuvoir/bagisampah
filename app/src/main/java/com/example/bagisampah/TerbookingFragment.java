@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -51,7 +52,21 @@ public class TerbookingFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         txtKosong = inflate.findViewById(R.id.txt_kosong);
         txtKosong.setVisibility(View.INVISIBLE);
+        final SwipeRefreshLayout pullToRefresh = inflate.findViewById(R.id.swipe_refresh);
+        pullToRefresh.setOnRefreshListener(() -> {
+            getData();
+            Toast.makeText(getContext(), "a", Toast.LENGTH_SHORT).show();
+            pullToRefresh.setRefreshing(false);
+        });
 
+        getData();
+
+
+
+        return inflate;
+    }
+
+    private void getData(){
         db.getReference("DBSampah").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -88,6 +103,5 @@ public class TerbookingFragment extends Fragment {
             }
         });
 
-        return inflate;
     }
 }

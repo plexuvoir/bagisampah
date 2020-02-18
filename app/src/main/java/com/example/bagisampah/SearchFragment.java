@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,7 +52,8 @@ public class SearchFragment extends Fragment {
     ViewPager viewPager;
     PageAdapter pageAdapter;
     TabItem tabSemua, tabPlastik, tabKertas, tabTekstil, tabKaleng, tabKaca;
-
+    int harga, hargaMax;
+    boolean read = false;
 
 
     @Nullable
@@ -70,8 +72,30 @@ public class SearchFragment extends Fragment {
         tabKaleng = inflate.findViewById(R.id.tabKaleng);
         tabKaca = inflate.findViewById(R.id.tabKaca);
         viewPager = inflate.findViewById(R.id.viewPager);
+        hargaMax = 0;
 
         setHasOptionsMenu(true);
+
+        db = FirebaseDatabase.getInstance();
+        db.getReference("DBSampah").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot sn : dataSnapshot.getChildren()){
+                    if(sn.child("statusSampah").getValue(String.class).equalsIgnoreCase("Available")){
+                        harga = Integer.parseInt(sn.child("hargaSampah").getValue(String.class));
+                        if (harga>=hargaMax){
+                            hargaMax=harga;
+                        }
+                    }
+                }
+                read = true;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
         pageAdapter = new PageAdapter(getFragmentManager(), tabLayout.getTabCount());
@@ -111,15 +135,15 @@ public class SearchFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_filter:
-//                Intent favorite = new Intent(getContext(), .class);
-//                startActivity(favorite);
+                if (read){
+                    Intent intent = new Intent(getContext(), Filter.class);
+                    intent.putExtra("hargaMax", hargaMax);
+                    startActivity(intent);
+                }
                 return true;
-
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
