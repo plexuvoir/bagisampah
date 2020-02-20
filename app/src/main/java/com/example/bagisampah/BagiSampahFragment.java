@@ -348,14 +348,8 @@ public class BagiSampahFragment extends Fragment {
         mDatabase.child("DBSampah").push().setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                DataBagiSampah.setNamaSampah(null);
-                DataBagiSampah.setAlamatSampah(null);
-                DataBagiSampah.setHargaSampah(null);
-                DataBagiSampah.setDeskripsiSampah(null);
-                DataBagiSampah.setImgSampah(null);
-                DataEditSampah.setAlamatSampah(null);
-                DataBagiSampah.setLatLoc(null);
-                DataBagiSampah.setLongLoc(null);
+                DataBagiSampah.setNullAll();
+                DataEditSampah.setNullAll();
 
 //                namaSampah.setText("");
 //                deskripsiSampah.setText("");

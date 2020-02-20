@@ -55,6 +55,9 @@ public class SearchFragment extends Fragment {
     int harga, hargaMax;
     boolean read = false;
 
+     static double currentLatitude;
+     static double currentLongitude;
+
 
     @Nullable
     @Override
@@ -96,6 +99,12 @@ public class SearchFragment extends Fragment {
 
             }
         });
+
+
+            GPSTracker gps = new GPSTracker(getContext());
+            currentLatitude = gps.getLatitude();
+            currentLongitude = gps.getLongitude();
+
 
 
         pageAdapter = new PageAdapter(getFragmentManager(), tabLayout.getTabCount());
@@ -145,5 +154,13 @@ public class SearchFragment extends Fragment {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public static double getCurrentLatitude() {
+        return currentLatitude;
+    }
+
+    public static double getCurrentLongitude() {
+        return currentLongitude;
     }
 }

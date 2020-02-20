@@ -151,6 +151,7 @@
                 android:layout_height="wrap_content"
                 android:text="Gratis Saja"
                 android:textSize="32sp"
+                android:gravity="center"
                 android:button="@drawable/bg_checkbox"
                 />
 

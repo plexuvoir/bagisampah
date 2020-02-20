@@ -117,7 +117,7 @@ public class DetailSampah extends AppCompatActivity {
 
         //gmap view
 
-        String URLgmap = "http://maps.google.com/maps/api/staticmap?center=" + elat + "," + elong + "&markers=color:red%7Clabel:%7C"+ elat +","+ elong +"&zoom=15&size=600x400&sensor=false&key=AIzaSyCZacxowaOXMkI9Ryx8nSRescj8e60AL44";
+        String URLgmap = "https://maps.google.com/maps/api/staticmap?center=" + elat + "," + elong + "&markers=color:red%7Clabel:%7C"+ elat +","+ elong +"&zoom=15&size=600x400&sensor=false&key=AIzaSyCZacxowaOXMkI9Ryx8nSRescj8e60AL44";
         Picasso.get().load(URLgmap).into(imgGmap);
         Picasso.get().load(eimgSampah).into(imgSampah);
 

@@ -11,6 +11,7 @@ public class DataBagiSampah {
     private static String hargaSampah;
     private static String latLoc;
 
+
     public static String getLatLoc() {
         return latLoc;
     }
@@ -87,4 +88,17 @@ public class DataBagiSampah {
     public static void setImgSampah(Bitmap imgSampah) {
         DataBagiSampah.imgSampah = imgSampah;
     }
+
+    public static void setNullAll (){
+        setNamaSampah(null);
+        setAlamatSampah(null);
+        setHargaSampah(null);
+        setDeskripsiSampah(null);
+        setImgSampah(null);
+        setAlamatSampah(null);
+        setLatLoc(null);
+        setLongLoc(null);
+    }
+
 }
+

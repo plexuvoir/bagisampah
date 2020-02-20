@@ -87,4 +87,15 @@ public class DataEditSampah {
     public static void setImgSampah(Bitmap imgSampah) {
         DataEditSampah.imgSampah = imgSampah;
     }
+
+    public static void setNullAll (){
+        setNamaSampah(null);
+        setAlamatSampah(null);
+        setHargaSampah(null);
+        setDeskripsiSampah(null);
+        setImgSampah(null);
+        setAlamatSampah(null);
+        setLatLoc(null);
+        setLongLoc(null);
+    }
 }

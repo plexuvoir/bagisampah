@@ -141,6 +141,13 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    @Override
+    protected void onDestroy() {
+        DataFilter.setNullAll();
+        super.onDestroy();
+    }
+
+
     private  boolean checkAndRequestPermissions() {
         int permissionLocC = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION);
         int permissionLocF = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);

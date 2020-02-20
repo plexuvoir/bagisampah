@@ -67,11 +67,8 @@ public class EditSampah extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("ALAMATSAMPAHONCREATe", "onCreate: "+DataEditSampah.getAlamatSampah());
-        DataEditSampah.setAlamatSampah(null);
-        DataBagiSampah.setLatLoc(null);
-        DataBagiSampah.setLongLoc(null);
-        DataEditSampah.setLatLoc(null);
-        DataEditSampah.setLongLoc(null);
+        DataBagiSampah.setNullAll();
+        DataEditSampah.setNullAll();
         setContentView(R.layout.activity_edit_sampah);
         namaSampah = findViewById(R.id.namaSampah);
         deskripsiSampah = findViewById(R.id.deskripsiSampah);
@@ -250,15 +247,8 @@ public class EditSampah extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        DataEditSampah.setNamaSampah(null);
-        DataEditSampah.setAlamatSampah(null);
-        DataEditSampah.setHargaSampah(null);
-        DataEditSampah.setDeskripsiSampah(null);
-        DataEditSampah.setImgSampah(null);
-        DataBagiSampah.setLatLoc(null);
-        DataBagiSampah.setLongLoc(null);
-        DataEditSampah.setLatLoc(null);
-        DataEditSampah.setLongLoc(null);
+        DataBagiSampah.setNullAll();
+        DataEditSampah.setNullAll();
         super.onBackPressed();
     }
 
@@ -309,16 +299,8 @@ public class EditSampah extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 Intent intent = new Intent(EditSampah.this,MainActivity.class);
                 intent.putExtra("fragmentToLoad",R.id.nav_sampah_saya);
-                DataEditSampah.setNamaSampah(null);
-                DataEditSampah.setAlamatSampah(null);
-                DataEditSampah.setHargaSampah(null);
-                DataEditSampah.setDeskripsiSampah(null);
-                DataEditSampah.setImgSampah(null);
-                DataBagiSampah.setAlamatSampah(null);
-                DataBagiSampah.setLatLoc(null);
-                DataBagiSampah.setLongLoc(null);
-                DataEditSampah.setLatLoc(null);
-                DataEditSampah.setLongLoc(null);
+                DataBagiSampah.setNullAll();
+                DataEditSampah.setNullAll();
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 //startActivity(new Intent(EditSampah.this, DetailSampahSaya.class));

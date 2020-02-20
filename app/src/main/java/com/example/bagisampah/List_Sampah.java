@@ -1,6 +1,7 @@
 package com.example.bagisampah;
 
 public class List_Sampah {
+
     private String img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, user, key, idPengambil;
 
 
