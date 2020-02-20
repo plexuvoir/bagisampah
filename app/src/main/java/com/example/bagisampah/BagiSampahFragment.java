@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -21,10 +22,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -43,6 +46,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.collection.LLRBNode;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -62,13 +66,15 @@ public class BagiSampahFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseDatabase db;
     private DatabaseReference mDatabase;
-    private String namaUserString, nomorTeleponString;
+    private String namaUserString, nomorTeleponString,hargaSampahString="null";
     private Spinner spinnerKategori;
     private static String imgLink = "belum masuk";
     private ImageView imgMaps;
     private String  eAddress;
     private double eLatitude, eLongitude;
     private String nama="",deskripsi="",alamat="",harga="";
+    private CheckBox checkBoxGratis;
+    private TextView textRP;
 
     private ImageView imgUploadSampah;
     private Uri filepath, filepathGlobal;
@@ -89,6 +95,8 @@ public class BagiSampahFragment extends Fragment {
         alamatSampah = inflate.findViewById(R.id.alamatSampah);
         hargaSampah = inflate.findViewById(R.id.hargaSampah);
         btn_post = inflate.findViewById(R.id.btn_post);
+        checkBoxGratis = inflate.findViewById(R.id.checkbox_gratis);
+        textRP = inflate.findViewById(R.id.text_rp);
         db = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -96,6 +104,7 @@ public class BagiSampahFragment extends Fragment {
         imgMaps = inflate.findViewById(R.id.imgMaps);
         imgStorage = FirebaseStorage.getInstance();
         imgStorageReference = imgStorage.getReference();
+
 
 
 
@@ -157,7 +166,7 @@ public class BagiSampahFragment extends Fragment {
 
                 }
                 Log.d(TAG, "GETLATLOC "+DataBagiSampah.getLatLoc());
-                if (namaSampah.getText().toString().equalsIgnoreCase("")|| deskripsiSampah.getText().toString().equalsIgnoreCase("")  || alamatSampah.getText().toString().equalsIgnoreCase("")|| hargaSampah.getText().toString().equalsIgnoreCase("") || DataBagiSampah.getLatLoc()==null){
+                if (namaSampah.getText().toString().equalsIgnoreCase("")|| deskripsiSampah.getText().toString().equalsIgnoreCase("")  || alamatSampah.getText().toString().equalsIgnoreCase("")|| hargaSampahString.equals("null") || DataBagiSampah.getLatLoc()==null){
                     Toast.makeText(getContext(), "Mohon isi semua form yang tersedia.", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onClick: masuk if");
                 } else {
@@ -168,6 +177,32 @@ public class BagiSampahFragment extends Fragment {
                 }
             }
         });
+
+
+        checkBoxGratis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkBoxGratis.isChecked()){
+                    hargaSampah.setEnabled(false);
+                    hargaSampah.setCursorVisible(false);
+                    textRP.setTextColor(Color.parseColor("#9e9e9e"));
+                    hargaSampahString = "0";
+                    Toast.makeText(getContext(),"Checked", Toast.LENGTH_LONG).show();
+                }
+                else {
+                   // hargaSampah.setFocusable(true);
+                    hargaSampah.setEnabled(true);
+                    hargaSampah.setCursorVisible(true);
+                    textRP.setTextColor(Color.parseColor("#212121"));
+                    hargaSampahString = hargaSampah.getText().toString();
+                    Toast.makeText(getContext(),"Unchecked", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+
+
+
         return inflate;
     }
     private void chooseImage() {
@@ -285,7 +320,6 @@ public class BagiSampahFragment extends Fragment {
         String kategoriSampahString = spinnerKategori.getSelectedItem().toString();
         String latlocSampahString = DataBagiSampah.getLatLoc();
         String longlocSampahString = DataBagiSampah.getLongLoc();
-        String hargaSampahString = hargaSampah.getText().toString();
         String statusSampahString = "Available";
         String jarakSampahString = "0";
         String userString = auth.getCurrentUser().getUid();
@@ -322,15 +356,17 @@ public class BagiSampahFragment extends Fragment {
                 DataEditSampah.setAlamatSampah(null);
                 DataBagiSampah.setLatLoc(null);
                 DataBagiSampah.setLongLoc(null);
-                DataEditSampah.setLatLoc(null);
-                DataEditSampah.setLongLoc(null);
-                namaSampah.setText("");
-                deskripsiSampah.setText("");
-                alamatSampah.setText("");
-                hargaSampah.setText("");
+
+//                namaSampah.setText("");
+//                deskripsiSampah.setText("");
+//                alamatSampah.setText("");
+//                hargaSampah.setText("");
             }
         });
 
 
     }
+
+
+
 }
