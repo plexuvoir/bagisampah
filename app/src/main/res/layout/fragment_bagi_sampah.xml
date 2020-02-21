@@ -7,7 +7,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="10dp">
             <ImageView
                 android:id="@+id/imgUploadSampah"
                 android:layout_width="match_parent"
@@ -28,6 +30,10 @@
                 android:layout_marginVertical="5dp"
                 />
             <EditText
+                android:paddingHorizontal="5dp"
+                android:background="@drawable/rectangular_edit"
+                android:textColorHighlight="@color/colorPrimary"
+                android:textCursorDrawable="@null"
                 android:id="@+id/namaSampah"
                 android:layout_marginVertical="5dp"
                 android:layout_marginHorizontal="5dp"
@@ -43,11 +49,22 @@
                 android:layout_marginVertical="5dp"
                 />
             <EditText
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:background="@drawable/rectangular_edit"
+                android:textColorHighlight="@color/colorPrimary"
+                android:textCursorDrawable="@null"
                 android:id="@+id/deskripsiSampah"
+                android:scrollbars="vertical"
                 android:layout_marginVertical="5dp"
                 android:layout_marginHorizontal="5dp"
+                android:inputType="textMultiLine"
+                android:hint="Deskripsi dapat berupa penjelasan jumlah, ukuran, dan warna sampah."
+                android:gravity="top"
+                android:maxLines="8"
+                android:lines="5"
                 android:layout_width="match_parent"
-                android:layout_height="45dp" />
+                android:layout_height="wrap_content" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,14 +74,30 @@
                 android:textSize="25sp"
                 android:layout_marginVertical="5dp"
                 />
-            <Spinner
-                android:id="@+id/spinnerKategori"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginVertical="5dp"
-                android:layout_marginHorizontal="5dp"
-                android:entries="@array/kategori_array"
-                />
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:paddingHorizontal="5dp"
+                    android:background="@drawable/rectangular_edit"
+                    android:id="@+id/spinnerKategori"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginHorizontal="5dp"
+                    android:entries="@array/kategori_array"
+                    />
+
+                <ImageView
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_arrow_drop_down_black_24dp" />
+            </RelativeLayout>
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -77,6 +110,7 @@
                 />
 
             <ImageView
+                android:layout_marginHorizontal="5dp"
                 android:id="@+id/imgMaps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,14 +130,21 @@
                 android:layout_marginVertical="5dp"
                 />
             <EditText
+                android:paddingHorizontal="5dp"
+                android:paddingVertical="5dp"
+                android:background="@drawable/rectangular_edit"
+                android:textColorHighlight="@color/colorPrimary"
+                android:textCursorDrawable="@null"
                 android:id="@+id/alamatSampah"
                 android:layout_marginVertical="5dp"
                 android:layout_marginHorizontal="5dp"
+                android:scrollbars="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
+                android:gravity="top"
                 android:maxLines="8"
-                android:lines="4"
+                android:lines="5"
                 />
 
             <TextView
@@ -120,22 +161,27 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="10dp">
                 <TextView
                     android:id="@+id/text_rp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center_vertical"
                     android:textSize="24sp"
                     android:textColor="#212121"
                     android:text="Rp"
                     />
 
                 <EditText
+                    android:paddingHorizontal="5dp"
+                    android:background="@drawable/rectangular_edit"
+                    android:textColorHighlight="@color/colorPrimary"
+                    android:textCursorDrawable="@null"
                     android:id="@+id/hargaSampah"
-                    android:layout_marginVertical="5dp"
-                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginLeft="24dp"
+                    android:textSize="24sp"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:inputType="numberDecimal"
@@ -143,6 +189,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:layout_marginVertical="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -165,14 +212,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Gratis"
-                        android:textSize="32sp"
+                        android:textSize="22sp"
                         android:textColor="#212121"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="*saya ingin mendonasikan sampah saya"
-                        android:textSize="12sp"
+                        android:textSize="16sp"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -184,7 +231,7 @@
                 android:background="@drawable/round_button"
                 android:id="@+id/btn_post"
                 android:layout_marginVertical="24dp"
-                android:layout_marginHorizontal="40dp"
+                android:layout_marginHorizontal="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="55dp" />
 

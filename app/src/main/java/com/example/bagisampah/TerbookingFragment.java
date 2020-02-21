@@ -1,5 +1,6 @@
 package com.example.bagisampah;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -71,7 +72,20 @@ public class TerbookingFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list_sampahs.clear();
+                Location locSaya = new Location("");
+                locSaya.setLatitude(SearchFragment.getCurrentLatitude());
+                locSaya.setLongitude(SearchFragment.getCurrentLongitude());
                 for (DataSnapshot sn : dataSnapshot.getChildren()){
+                    //hitung jarak
+
+
+                    Location location = new Location("");
+                    location.setLatitude(Double.parseDouble(sn.child("latlocSampah").getValue(String.class)));
+                    location.setLongitude(Double.parseDouble(sn.child("longlocSampah").getValue(String.class)));
+
+                    float jarakMeter = locSaya.distanceTo(location);
+                    String jarakKM = String.valueOf(Math.round((jarakMeter/1000)*100.0)/100.0);
+
                     if (sn.child("idPengambil").getValue(String.class).equalsIgnoreCase(auth.getCurrentUser().getUid())&&sn.child("statusSampah").getValue(String.class).equalsIgnoreCase("Terbooking")){
                         String img = sn.child("img").getValue(String.class);
                         String nama = sn.child("namaSampah").getValue(String.class);
@@ -81,7 +95,7 @@ public class TerbookingFragment extends Fragment {
                         String longloc = sn.child("longlocSampah").getValue(String.class);
                         String harga = sn.child("hargaSampah").getValue(String.class);
                         String status = sn.child("statusSampah").getValue(String.class);
-                        String jarak = sn.child("jarakSampah").getValue(String.class);
+                        String jarak = jarakKM;
                         String alamat = sn.child("alamatSampah").getValue(String.class);
                         String uid = sn.child("user").getValue(String.class);
                         String key = sn.getKey();

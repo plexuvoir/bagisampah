@@ -77,6 +77,7 @@ public class BagiSampahFragment extends Fragment {
     private String nama="",deskripsi="",alamat="",harga="";
     private CheckBox checkBoxGratis;
     private TextView textRP;
+    private String hargaTemp="";
 
     private ImageView imgUploadSampah;
     private Uri filepath, filepathGlobal;
@@ -197,12 +198,16 @@ public class BagiSampahFragment extends Fragment {
             }
         });
 
+
         checkBoxGratis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(checkBoxGratis.isChecked()){
+                    hargaTemp = hargaSampah.getText().toString();
                     hargaSampah.setEnabled(false);
                     hargaSampah.setCursorVisible(false);
+                    hargaSampah.setText("0");
+                    hargaSampah.setBackgroundResource(R.drawable.rectangular_edit_grey);
                     textRP.setTextColor(Color.parseColor("#9e9e9e"));
                     hargaSampahString = "0";
                     Toast.makeText(getContext(),"Checked", Toast.LENGTH_LONG).show();
@@ -211,6 +216,8 @@ public class BagiSampahFragment extends Fragment {
                    // hargaSampah.setFocusable(true);
                     hargaSampah.setEnabled(true);
                     hargaSampah.setCursorVisible(true);
+                    hargaSampah.setBackgroundResource(R.drawable.rectangular_edit);
+                    hargaSampah.setText(hargaTemp);
                     textRP.setTextColor(Color.parseColor("#212121"));
                     hargaSampahString = hargaSampah.getText().toString();
                     Toast.makeText(getContext(),"Unchecked", Toast.LENGTH_LONG).show();
@@ -341,7 +348,6 @@ public class BagiSampahFragment extends Fragment {
         String latlocSampahString = DataBagiSampah.getLatLoc();
         String longlocSampahString = DataBagiSampah.getLongLoc();
         String statusSampahString = "Available";
-        String jarakSampahString = "0";
         String userString = auth.getCurrentUser().getUid();
         Log.d("user", userString);
         String alamatSampahString = alamatSampah.getText().toString();
@@ -355,7 +361,6 @@ public class BagiSampahFragment extends Fragment {
         dataMap.put("longlocSampah", longlocSampahString);
         dataMap.put("hargaSampah", hargaSampahString);
         dataMap.put("statusSampah", statusSampahString);
-        dataMap.put("jarakSampah", jarakSampahString);
         dataMap.put("user", userString);
         dataMap.put("alamatSampah", alamatSampahString);
         dataMap.put("namaUser", namaUserString);

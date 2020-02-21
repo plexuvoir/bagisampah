@@ -31,7 +31,7 @@ public class SampahSayaFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private FirebaseAuth auth;
     HashMap<String,String> sampah = new HashMap<>();
-    private SampahAdapter adapter;
+    private SampahAdapterSaya adapter;
     private DatabaseReference mDatabase;
     private TextView txtKosong;
 
@@ -79,7 +79,7 @@ public class SampahSayaFragment extends Fragment {
                 if (list_sampahs.size()==0){
                     txtKosong.setVisibility(View.VISIBLE);
                 }
-                adapter = new SampahAdapter(getContext(), list_sampahs);
+                adapter = new SampahAdapterSaya(getContext(), list_sampahs);
                 recycler_sampah.setAdapter(adapter);
             }
 

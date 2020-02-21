@@ -63,18 +63,20 @@ public class SemuaFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list_sampahs.clear();
+                Location locSaya = new Location("");
+                locSaya.setLatitude(SearchFragment.getCurrentLatitude());
+                locSaya.setLongitude(SearchFragment.getCurrentLongitude());
                 for (DataSnapshot sn : dataSnapshot.getChildren()){
 
                     //hitung jarak
-                    Location locSaya = new Location("");
-                    locSaya.setLatitude(SearchFragment.getCurrentLatitude());
-                    locSaya.setLongitude(SearchFragment.getCurrentLongitude());
+
 
                     Location location = new Location("");
                     location.setLatitude(Double.parseDouble(sn.child("latlocSampah").getValue(String.class)));
                     location.setLongitude(Double.parseDouble(sn.child("longlocSampah").getValue(String.class)));
 
                     float jarakMeter = locSaya.distanceTo(location);
+                    Log.d("jarakMeter", "onDataChange: "+jarakMeter);
                     String jarakKM = String.valueOf(Math.round((jarakMeter/1000)*100.0)/100.0);
 
                     if (DataFilter.getFiltered()){
