@@ -1,8 +1,12 @@
 package com.example.bagisampah;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,6 +54,8 @@ public class DetailSampahTerbooking extends AppCompatActivity {
         btnWhatsapp = findViewById(R.id.btn_Whatsapp);
         btnCancel = findViewById(R.id.btn_cancel);
         imgGmap = findViewById(R.id.view_gmap);
+
+
 
         db = FirebaseDatabase.getInstance();
 
@@ -130,7 +136,27 @@ public class DetailSampahTerbooking extends AppCompatActivity {
 
 
         btnCancel.setOnClickListener(view -> {
-            uploadData();
+            AlertDialog.Builder builder = new AlertDialog.Builder(DetailSampahTerbooking.this, R.style.DialogStyle);
+            builder.setTitle("Batalkan Pesan")
+                    .setMessage("Apakah Anda yakin akan membatalkan pesanan ini?")
+                    .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            new Handler().postDelayed(()->{
+                                uploadData();
+                            }, 500);
+                            Snackbar.make(view, "Pesanan Dibatalkan", Snackbar.LENGTH_SHORT).show();
+                        }
+                    })
+                    .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            //do nothing
+                        }
+                    })
+                    .show();
+
+
         });
 
     }
@@ -147,5 +173,7 @@ public class DetailSampahTerbooking extends AppCompatActivity {
             }
         });
     }
+
+
 
 }
