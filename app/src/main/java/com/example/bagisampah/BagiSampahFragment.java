@@ -17,6 +17,8 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -178,6 +180,22 @@ public class BagiSampahFragment extends Fragment {
             }
         });
 
+        hargaSampah.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hargaSampahString = hargaSampah.getText().toString();
+            }
+        });
 
         checkBoxGratis.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,6 +217,8 @@ public class BagiSampahFragment extends Fragment {
                 }
             }
         });
+
+
 
 
 
@@ -326,8 +346,6 @@ public class BagiSampahFragment extends Fragment {
         Log.d("user", userString);
         String alamatSampahString = alamatSampah.getText().toString();
         String idPengambil = "idpengambil0";
-//        String namaPengambil = "namapengambil0";
-//        String nomorPengambil = "nomorpengambil0";
         HashMap<String, Object> dataMap = new HashMap<String, Object>();
         dataMap.put("img", imgString);
         dataMap.put("namaSampah", namaSampahString);
@@ -343,18 +361,13 @@ public class BagiSampahFragment extends Fragment {
         dataMap.put("namaUser", namaUserString);
         dataMap.put("nomorTelepon", nomorTeleponString);
         dataMap.put("idPengambil", idPengambil);
-//        dataMap.put("namaPengambil", namaPengambil);
-//        dataMap.put("nomorPengambil", nomorPengambil);
+
         mDatabase.child("DBSampah").push().setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 DataBagiSampah.setNullAll();
                 DataEditSampah.setNullAll();
 
-//                namaSampah.setText("");
-//                deskripsiSampah.setText("");
-//                alamatSampah.setText("");
-//                hargaSampah.setText("");
             }
         });
 

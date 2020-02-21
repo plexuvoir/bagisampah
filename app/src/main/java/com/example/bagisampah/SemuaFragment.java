@@ -76,7 +76,6 @@ public class SemuaFragment extends Fragment {
 
                     float jarakMeter = locSaya.distanceTo(location);
                     String jarakKM = String.valueOf(Math.round((jarakMeter/1000)*100.0)/100.0);
-                    Log.d("hitungjarak", "onDataChange: "+jarakMeter);
 
                     if (DataFilter.getFiltered()){
                         if(sn.child("statusSampah").getValue(String.class).equalsIgnoreCase("Available")&& Integer.parseInt(sn.child("hargaSampah").getValue(String.class))<=Integer.parseInt(DataFilter.getMaxHarga())&& (jarakMeter/1000)<=Float.parseFloat(DataFilter.getMaxJarak())){

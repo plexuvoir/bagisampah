@@ -1,6 +1,7 @@
 package com.example.bagisampah;
 
 import android.content.Context;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -56,22 +57,55 @@ public class KalengFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list_sampahs.clear();
                 for (DataSnapshot sn : dataSnapshot.getChildren()){
-                    if (sn.child("kategoriSampah").getValue(String.class).equalsIgnoreCase("kaleng") && sn.child("statusSampah").getValue(String.class).equalsIgnoreCase("Available")){
-                        String img = sn.child("img").getValue(String.class);
-                        String nama = sn.child("namaSampah").getValue(String.class);
-                        String deskripsi = sn.child("deskripsiSampah").getValue(String.class);
-                        String kategori = sn.child("kategoriSampah").getValue(String.class);
-                        String latloc = sn.child("latlocSampah").getValue(String.class);
-                        String longloc = sn.child("longlocSampah").getValue(String.class);
-                        String harga = sn.child("hargaSampah").getValue(String.class);
-                        String status = sn.child("statusSampah").getValue(String.class);
-                        String jarak = sn.child("jarakSampah").getValue(String.class);
-                        String alamat = sn.child("alamatSampah").getValue(String.class);
-                        String uid = sn.child("user").getValue(String.class);
-                        String key = sn.getKey();
-                        String idPengambil = sn.child("idPengambil").getValue(String.class);
-                        list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, key, idPengambil));
-                        Collections.reverse(list_sampahs);
+
+                    //hitung jarak
+                    Location locSaya = new Location("");
+                    locSaya.setLatitude(SearchFragment.getCurrentLatitude());
+                    locSaya.setLongitude(SearchFragment.getCurrentLongitude());
+
+                    Location location = new Location("");
+                    location.setLatitude(Double.parseDouble(sn.child("latlocSampah").getValue(String.class)));
+                    location.setLongitude(Double.parseDouble(sn.child("longlocSampah").getValue(String.class)));
+
+                    float jarakMeter = locSaya.distanceTo(location);
+                    String jarakKM = String.valueOf(Math.round((jarakMeter/1000)*100.0)/100.0);
+
+                    if (DataFilter.getFiltered()){
+                        if(sn.child("kategoriSampah").getValue(String.class).equalsIgnoreCase("kaleng") && sn.child("statusSampah").getValue(String.class).equalsIgnoreCase("Available")&& Integer.parseInt(sn.child("hargaSampah").getValue(String.class))<=Integer.parseInt(DataFilter.getMaxHarga())&& (jarakMeter/1000)<=Float.parseFloat(DataFilter.getMaxJarak())){
+                            String img = sn.child("img").getValue(String.class);
+                            String nama = sn.child("namaSampah").getValue(String.class);
+                            String deskripsi = sn.child("deskripsiSampah").getValue(String.class);
+                            String kategori = sn.child("kategoriSampah").getValue(String.class);
+                            String latloc = sn.child("latlocSampah").getValue(String.class);
+                            String longloc = sn.child("longlocSampah").getValue(String.class);
+                            String harga = sn.child("hargaSampah").getValue(String.class);
+                            String status = sn.child("statusSampah").getValue(String.class);
+                            String jarak = jarakKM;
+                            String alamat = sn.child("alamatSampah").getValue(String.class);
+                            String uid = sn.child("user").getValue(String.class);
+                            String key = sn.getKey();
+                            String idPengambil = sn.child("idPengambil").getValue(String.class);
+                            list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, key, idPengambil));
+                            Collections.reverse(list_sampahs);
+                        }
+                    } else {
+                        if (sn.child("kategoriSampah").getValue(String.class).equalsIgnoreCase("kaleng") && sn.child("statusSampah").getValue(String.class).equalsIgnoreCase("Available")){
+                            String img = sn.child("img").getValue(String.class);
+                            String nama = sn.child("namaSampah").getValue(String.class);
+                            String deskripsi = sn.child("deskripsiSampah").getValue(String.class);
+                            String kategori = sn.child("kategoriSampah").getValue(String.class);
+                            String latloc = sn.child("latlocSampah").getValue(String.class);
+                            String longloc = sn.child("longlocSampah").getValue(String.class);
+                            String harga = sn.child("hargaSampah").getValue(String.class);
+                            String status = sn.child("statusSampah").getValue(String.class);
+                            String jarak = jarakKM;
+                            String alamat = sn.child("alamatSampah").getValue(String.class);
+                            String uid = sn.child("user").getValue(String.class);
+                            String key = sn.getKey();
+                            String idPengambil = sn.child("idPengambil").getValue(String.class);
+                            list_sampahs.add(new List_Sampah(img, nama, deskripsi, kategori, latloc, longloc, harga, status, jarak, alamat, uid, key, idPengambil));
+                            Collections.reverse(list_sampahs);
+                        }
                     }
                 }
                 adapter = new SampahAdapter(getContext(), list_sampahs);

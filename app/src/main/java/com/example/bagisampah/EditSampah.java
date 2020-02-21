@@ -3,6 +3,7 @@ package com.example.bagisampah;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.ContactsContract;
@@ -12,14 +13,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -48,12 +53,14 @@ public class EditSampah extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseDatabase db;
     private DatabaseReference mDatabase;
-    private String namaUserString, nomorTeleponString;
+    private String namaUserString, nomorTeleponString,hargaSampahString;
     private Spinner spinnerKategori;
     private static String imgLink = "belum masuk";
     private ImageView imgMaps;
     private String  eAddress, ekey;
     private String elat, elong;
+    private CheckBox checkBoxGratis;
+    private TextView textRP;
 
     FirebaseStorage imgStorage;
     StorageReference imgStorageReference;
@@ -76,6 +83,8 @@ public class EditSampah extends AppCompatActivity {
         alamatSampah = findViewById(R.id.alamatSampah);
         hargaSampah = findViewById(R.id.hargaSampah);
         btn_simpan = findViewById(R.id.btn_simpan);
+        checkBoxGratis = findViewById(R.id.checkbox_gratis);
+        textRP = findViewById(R.id.text_rp);
         db = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -103,6 +112,7 @@ public class EditSampah extends AppCompatActivity {
             namaSampah.setText(enamaSampah);
             deskripsiSampah.setText(edeskripsiSampah);
             hargaSampah.setText(ehargaSampah);
+            hargaSampahString = hargaSampah.getText().toString();
             alamatSampah.setText(ealamatUser);
             Picasso.get().load(eimgSampah).into(imgUploadSampah);
 //            switch (ekategori){
@@ -146,6 +156,42 @@ public class EditSampah extends AppCompatActivity {
 //            }
             startActivity(new Intent(EditSampah.this, MapsActivityBagi.class));
 //            getActivity().finish();
+        });
+
+        hargaSampah.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                hargaSampahString = hargaSampah.getText().toString();
+            }
+        });
+
+        checkBoxGratis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkBoxGratis.isChecked()){
+                    hargaSampah.setEnabled(false);
+                    hargaSampah.setCursorVisible(false);
+                    textRP.setTextColor(Color.parseColor("#9e9e9e"));
+                    hargaSampahString = "0";
+                }
+                else {
+                    // hargaSampah.setFocusable(true);
+                    hargaSampah.setEnabled(true);
+                    hargaSampah.setCursorVisible(true);
+                    textRP.setTextColor(Color.parseColor("#212121"));
+                    hargaSampahString = hargaSampah.getText().toString();
+                }
+            }
         });
 
         btn_simpan.setOnClickListener(new View.OnClickListener() {
@@ -273,7 +319,6 @@ public class EditSampah extends AppCompatActivity {
         String latlocSampahString = elat;
         String longlocSampahString = elong;
         Log.d("elatupdate", elat);
-        String hargaSampahString = hargaSampah.getText().toString();
         String statusSampahString = "Available";
         String jarakSampahString = "Jarak Sampah 0";
         String idPengambil = "idPengambil0";
