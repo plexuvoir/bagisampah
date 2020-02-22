@@ -1,10 +1,14 @@
 package com.example.bagisampah;
 
 import android.app.ActionBar;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -156,6 +160,21 @@ public class DetailSampah extends AppCompatActivity {
 
         btnAmbil.setOnClickListener(view -> {
             uploadData();
+            AlertDialog.Builder builder = new AlertDialog.Builder(DetailSampah.this, R.style.DialogStyle);
+            builder.setTitle("Pesanan Berhasil")
+                    .setMessage("Sampah telah berhasil dibooking.")
+                    .setPositiveButton("Cek sampah", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            new Handler().postDelayed(()->{
+                                Intent intent = new Intent(DetailSampah.this,MainActivity.class);
+                                intent.putExtra("fragmentToLoad",R.id.nav_terbooking);
+                                startActivity(intent);
+                                finish();
+                            }, 500);
+                        }
+                    }).setCancelable(false)
+                    .show();
         });
 
     }
@@ -167,9 +186,7 @@ public class DetailSampah extends AppCompatActivity {
         mDatabase.child("DBSampah").child(ekey).child("idPengambil").setValue(idPengambil).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Intent intent = new Intent(DetailSampah.this,MainActivity.class);
-                intent.putExtra("fragmentToLoad",R.id.nav_terbooking);
-                startActivity(intent);
+
             }
         });
     }

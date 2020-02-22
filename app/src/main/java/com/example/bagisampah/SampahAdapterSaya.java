@@ -1,8 +1,12 @@
 package com.example.bagisampah;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -69,7 +73,25 @@ public class SampahAdapterSaya extends RecyclerView.Adapter<SampahAdapterSaya.Vi
                 view.getContext().startActivity(intent);
             } );
             holder.jarak.setOnClickListener(view -> {
-                db.getReference("DBSampah").child(listSampah.getKey()).child("statusSampah").setValue("Dihapus");
+                AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.DialogStyle);
+                builder.setTitle("Hapus Sampah")
+                        .setMessage("Apakah Anda yakin ingin menghapus post ini?")
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                new Handler().postDelayed(()->{
+                                    db.getReference("DBSampah").child(listSampah.getKey()).child("statusSampah").setValue("Dihapus");
+                                }, 500);
+                                Snackbar.make(view, "Sampah dihapus.", Snackbar.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //do nothing
+                            }
+                        })
+                        .show();
             });
         } else if(listSampah.getUser().equalsIgnoreCase(auth.getCurrentUser().getUid()) && listSampah.getStatus().equalsIgnoreCase("Terbooking")){
             holder.harga.setVisibility(View.INVISIBLE);

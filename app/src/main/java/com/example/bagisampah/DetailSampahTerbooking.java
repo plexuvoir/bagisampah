@@ -149,7 +149,7 @@ public class DetailSampahTerbooking extends AppCompatActivity {
 
         btnCancel.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(DetailSampahTerbooking.this, R.style.DialogStyle);
-            builder.setTitle("Batalkan Pesan")
+            builder.setTitle("Batalkan Pesanan")
                     .setMessage("Apakah Anda yakin akan membatalkan pesanan ini?")
                     .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                         @Override
@@ -157,7 +157,7 @@ public class DetailSampahTerbooking extends AppCompatActivity {
                             new Handler().postDelayed(()->{
                                 uploadData();
                             }, 500);
-                            Snackbar.make(view, "Pesanan Dibatalkan", Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(view, "Pesanan dibatalkan.", Snackbar.LENGTH_SHORT).show();
                         }
                     })
                     .setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
