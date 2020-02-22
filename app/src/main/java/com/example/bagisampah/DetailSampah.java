@@ -166,12 +166,10 @@ public class DetailSampah extends AppCompatActivity {
                     .setPositiveButton("Cek sampah", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            new Handler().postDelayed(()->{
                                 Intent intent = new Intent(DetailSampah.this,MainActivity.class);
                                 intent.putExtra("fragmentToLoad",R.id.nav_terbooking);
                                 startActivity(intent);
                                 finish();
-                            }, 500);
                         }
                     }).setCancelable(false)
                     .show();

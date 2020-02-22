@@ -182,6 +182,7 @@ public class DetailSampahTerbooking extends AppCompatActivity {
                 Intent intent = new Intent(DetailSampahTerbooking.this,MainActivity.class);
                 intent.putExtra("fragmentToLoad",R.id.nav_cari_sampah);
                 startActivity(intent);
+                finish();
             }
         });
     }
