@@ -1,12 +1,15 @@
 package com.example.bagisampah;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -116,7 +119,16 @@ public class DetailSampahSaya extends AppCompatActivity {
         Picasso.get().load(eimgSampah).into(imgSampah);
         namaSampah.setText(enamaSampah);
         deskripsiSampah.setText(edeskripsiSampah);
-        hargaSampah.setText("Rp."+ehargaSampah);
+        hargaSampah.setText("Rp "+ehargaSampah);
+        if (ehargaSampah.equalsIgnoreCase("0")){
+            hargaSampah.setBackgroundResource(R.drawable.bg_gratis_round_detail);
+            hargaSampah.setText("Gratis");
+            float widthDP = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, getResources().getDisplayMetrics());
+            hargaSampah.setWidth((int)widthDP);
+            hargaSampah.setGravity(Gravity.CENTER);
+            hargaSampah.setTextColor(Color.parseColor("#ffffff"));
+            hargaSampah.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
+        }
         alamatUser.setText(ealamatUser);
 
 

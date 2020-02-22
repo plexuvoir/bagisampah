@@ -61,6 +61,7 @@ public class EditSampah extends AppCompatActivity {
     private String elat, elong;
     private CheckBox checkBoxGratis;
     private TextView textRP;
+    private String hargaTemp="";
 
     FirebaseStorage imgStorage;
     StorageReference imgStorageReference;
@@ -179,8 +180,11 @@ public class EditSampah extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(checkBoxGratis.isChecked()){
+                    hargaTemp = hargaSampah.getText().toString();
                     hargaSampah.setEnabled(false);
                     hargaSampah.setCursorVisible(false);
+                    hargaSampah.setText("0");
+                    hargaSampah.setBackgroundResource(R.drawable.rectangular_edit_grey);
                     textRP.setTextColor(Color.parseColor("#9e9e9e"));
                     hargaSampahString = "0";
                 }
@@ -188,6 +192,8 @@ public class EditSampah extends AppCompatActivity {
                     // hargaSampah.setFocusable(true);
                     hargaSampah.setEnabled(true);
                     hargaSampah.setCursorVisible(true);
+                    hargaSampah.setBackgroundResource(R.drawable.rectangular_edit);
+                    hargaSampah.setText(hargaTemp);
                     textRP.setTextColor(Color.parseColor("#212121"));
                     hargaSampahString = hargaSampah.getText().toString();
                 }
