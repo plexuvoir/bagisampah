@@ -35,6 +35,7 @@ public class Filter extends AppCompatActivity {
         btnTerapkan = findViewById(R.id.btn_terapkan);
         Bundle extras = getIntent().getExtras();
 
+
         if (extras != null){
             hargaMax = extras.getInt("hargaMax");
             hargaMaxString = String.valueOf(hargaMax);
@@ -139,5 +140,13 @@ public class Filter extends AppCompatActivity {
             finish();
 
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Filter.this,MainActivity.class);
+        intent.putExtra("fragmentToLoad",R.id.nav_cari_sampah);
+        startActivity(intent);
+        finish();
     }
 }

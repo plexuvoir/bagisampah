@@ -148,6 +148,7 @@ public class SearchFragment extends Fragment {
                     Intent intent = new Intent(getContext(), Filter.class);
                     intent.putExtra("hargaMax", hargaMax);
                     startActivity(intent);
+                    getActivity().finish();
                 }
                 return true;
             default:
