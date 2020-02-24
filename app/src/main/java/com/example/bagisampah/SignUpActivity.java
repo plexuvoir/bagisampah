@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -39,6 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
         edit_confirm_password = findViewById(R.id.edit_retype_password);
         edit_no_hp = findViewById(R.id.edit_nomor);
         auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
         db = FirebaseDatabase.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -59,12 +61,22 @@ public class SignUpActivity extends AppCompatActivity {
                             dataMap.put("email", emailString);
                             dataMap.put("nomorHP", nomorHPString);
                             mDatabase.child("Users").child(auth.getCurrentUser().getUid().toString()).setValue(dataMap);
-                            Toast.makeText(SignUpActivity.this, "Akun berhasil dibuat, silakan sign in", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                            finish();
+                            Toast.makeText(SignUpActivity.this, "Akun berhasil dibuat", Toast.LENGTH_SHORT).show();
+                            if (firebaseUser!=null){
+                                Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
                         }
                     });
                 } else {

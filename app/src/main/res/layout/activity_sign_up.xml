@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignUpActivity"
-    android:background="#ffffff"
     >
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="20dp"
             android:orientation="vertical"
             android:background="#ffffff">
-
             <ImageView
                 android:id="@+id/logo"
                 android:layout_width="match_parent"
@@ -24,71 +23,126 @@
                 android:scaleType="fitEnd"
                 android:src="@drawable/selamatdatang" />
 
-            <EditText
-                android:hint="Nama"
-                android:gravity="left|center"
-                android:layout_marginHorizontal="40dp"
-                android:background="@drawable/round_edit"
-                android:id="@+id/edit_nama"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:drawableStart="@drawable/profile"
-                android:drawablePadding="20dp"
-                android:paddingLeft="20dp"
-                android:inputType="textEmailAddress"
-                android:layout_marginVertical="10dp"/>
-            <EditText
-                android:hint="Email"
-                android:gravity="left|center"
-                android:layout_marginHorizontal="40dp"
-                android:background="@drawable/round_edit"
-                android:id="@+id/edit_email"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="40dp">
+                <EditText
+                    android:hint="Nama"
+                    android:gravity="left|center"
+                    android:background="@drawable/round_edit"
+                    android:id="@+id/edit_nama"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:paddingLeft="50dp"
+                    android:inputType="textEmailAddress"
+                    android:layout_marginVertical="10dp"/>
+                <ImageView
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/profile" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:drawableStart="@drawable/profile"
-                android:drawablePadding="22dp"
-                android:paddingLeft="20dp"
-                android:inputType="textEmailAddress"
-                android:layout_marginVertical="15dp"/>
-            <EditText
-                android:hint="Password"
-                android:gravity="left|center"
-                android:layout_marginHorizontal="40dp"
-                android:background="@drawable/round_edit"
-                android:id="@+id/edit_password"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="40dp">
+                <EditText
+                    android:hint="Email"
+                    android:gravity="left|center"
+                    android:background="@drawable/round_edit"
+                    android:id="@+id/edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:paddingLeft="50dp"
+                    android:inputType="textEmailAddress"
+                    android:layout_marginVertical="15dp"/>
+                <ImageView
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/profile" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:drawableStart="@drawable/lock"
-                android:drawablePadding="27dp"
-                android:paddingLeft="28dp"
-                android:inputType="textPassword"
-                android:layout_marginVertical="10dp"/>
-            <EditText
-                android:hint="Ulangi password"
-                android:gravity="left|center"
-                android:layout_marginHorizontal="40dp"
-                android:background="@drawable/round_edit"
-                android:id="@+id/edit_retype_password"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="40dp">
+                <EditText
+                    android:hint="Password"
+                    android:gravity="left|center"
+                    android:background="@drawable/round_edit"
+                    android:id="@+id/edit_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:paddingLeft="50dp"
+                    android:inputType="textPassword"
+                    android:layout_marginVertical="10dp"/>
+                <ImageView
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/lock" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:drawableStart="@drawable/lock"
-                android:drawablePadding="28dp"
-                android:paddingLeft="28dp"
-                android:inputType="textPassword"
-                android:layout_marginVertical="10dp"/>
-            <EditText
-                android:hint="Nomor WA"
-                android:gravity="left|center"
-                android:layout_marginHorizontal="40dp"
-                android:background="@drawable/round_edit"
-                android:id="@+id/edit_nomor"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="40dp">
+                <EditText
+                    android:hint="Ulangi password"
+                    android:gravity="left|center"
+                    android:background="@drawable/round_edit"
+                    android:id="@+id/edit_retype_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:paddingLeft="50dp"
+                    android:inputType="textPassword"
+                    android:layout_marginVertical="10dp"/>
+                <ImageView
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/lock" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:drawableStart="@drawable/numberdial"
-                android:drawablePadding="24dp"
-                android:paddingLeft="28dp"
-                android:inputType="phone"
-                android:layout_marginVertical="10dp"/>
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="40dp">
+                <EditText
+                    android:hint="Nomor WA"
+                    android:gravity="left|center"
+                    android:background="@drawable/round_edit"
+                    android:id="@+id/edit_nomor"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:paddingLeft="50dp"
+                    android:inputType="phone"
+                    android:layout_marginVertical="10dp"/>
+                <ImageView
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:src="@drawable/numberdial" />
+            </RelativeLayout>
+
 
             <Button
                 android:id="@+id/btn_daftar"
@@ -107,4 +161,4 @@
     </ScrollView>
 
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

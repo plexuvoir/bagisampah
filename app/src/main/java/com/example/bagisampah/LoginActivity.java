@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText edit_email, edit_password;
     private Button btn_login, btn_google;
-    private TextView txt_daftar;
+    private TextView txt_daftar, txtLupaPassword;
     private FirebaseAuth auth;
     private FirebaseDatabase db;
     private DatabaseReference mDatabase;
@@ -59,22 +59,15 @@ public class LoginActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+        txtLupaPassword = findViewById(R.id.txt_lupa_password);
         edit_email = findViewById(R.id.edit_email);
         edit_password = findViewById(R.id.edit_password);
         txt_daftar = findViewById(R.id.txt_daftar);
         btn_login = findViewById(R.id.btn_masuk);
-        btn_google = findViewById(R.id.btn_google);
         FirebaseApp.initializeApp(LoginActivity.this);
         auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-         GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions
-                 .Builder()
-                 .requestIdToken(getString(R.string.default_web_client_id))
-                 .requestEmail()
-                 .build();
-         mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,81 +97,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        txtLupaPassword.setOnClickListener(view -> {
+            startActivity(new Intent(LoginActivity.this, ResetPassword.class));
 
-        btn_google.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SignInGoogle();
-
-            }
         });
-    }
 
-    private void addUserToDatabase(FirebaseUser user){
-//            String nama=user.getDisplayName();
-//            String noHP=user.getPhoneNumber();
-//            for (UserInfo profile : user.getProviderData()) {
-//                if (nama == null && profile.getDisplayName()!=null){
-//                    nama = profile.getDisplayName();
-//                    noHP = profile.getPhoneNumber();
-//                }
-            //}
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Log.d("nama", user.getDisplayName());
-                    String email = user.getEmail();
-                    Log.d("nomor", user.getPhoneNumber());
-                    HashMap<String, Object> dataMap = new HashMap<String, Object>();
-                    dataMap.put("nama", user.getDisplayName());
-                    dataMap.put("email", email);
-                    dataMap.put("nomorHP", user.getPhoneNumber());
-                    mDatabase.child("Users").child(auth.getCurrentUser().getUid().toString()).setValue(dataMap);
-                    Toast.makeText(LoginActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
-                }
-            },2000);
 
     }
 
-    private void SignInGoogle(){
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, GOOGLE_SIGN_IN);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GOOGLE_SIGN_IN){
-            Task<GoogleSignInAccount> task = GoogleSignIn
-                    .getSignedInAccountFromIntent(data);
-            try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
-                if (account!=null){
-                    firebaseAuthWithGoogle(account);
-                }
-
-            } catch (ApiException e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
-        Log.d("TAG", "firebaseAuthWithGoogle:  "+account.getId());
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
-        auth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if(task.isSuccessful()){
-                        Log.d("TAG", "Signin Success");
-                        FirebaseUser user = auth.getCurrentUser();
-                        addUserToDatabase(user);
-                    } else {
-                        Log.w("TAG", "signInWithCredential:failure", task.getException());
-                        Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                    }
-
-                });
-    }
 }

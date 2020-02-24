@@ -1,6 +1,8 @@
 package com.example.bagisampah;
 
+import android.app.ActivityManager;
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.onesignal.OneSignal;
@@ -24,6 +26,7 @@ public class ApplicationClass extends Application {
                 .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
                 .unsubscribeWhenNotificationsAreDisabled(true)
                 .init();
+
     }
 
     public static synchronized ApplicationClass getInstance(){

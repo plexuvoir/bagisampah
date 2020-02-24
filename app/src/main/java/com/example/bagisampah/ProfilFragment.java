@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class ProfilFragment extends Fragment {
         btnEditNomor = inflate.findViewById(R.id.btn_edit_nomor);
 
         db = FirebaseDatabase.getInstance();
+        Log.d("uiddddd", "onCreateView: "+db.getReference("Users").child(firebaseAuth.getCurrentUser().getUid()));
         db.getReference("Users").child(firebaseAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -54,6 +56,7 @@ public class ProfilFragment extends Fragment {
                 txtMail.setText(emailString);
                 txtNama.setText(namaUserString);
                 txtNomorWhatsapp.setText(nomorTeleponString);
+                Log.d("apaaa", "onDataChange: "+nomorTeleponString);
             }
 
             @Override
@@ -70,6 +73,7 @@ public class ProfilFragment extends Fragment {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
+            getActivity().finish();
         });
 
         btnEditNama.setOnClickListener(view -> {
