@@ -29,7 +29,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class DetailSampah extends AppCompatActivity {
 
@@ -184,7 +188,6 @@ public class DetailSampah extends AppCompatActivity {
         mDatabase.child("DBSampah").child(ekey).child("idPengambil").setValue(idPengambil).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-
             }
         });
     }

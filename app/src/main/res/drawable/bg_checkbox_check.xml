@@ -3,7 +3,7 @@
     <item android:drawable="@drawable/ic_check_box_outline_blank_black_40dp" />
     <item android:state_checked="true"
 
-        android:drawable="@drawable/ic_check"
+        android:drawable="@drawable/slidetoact_check"
         android:width="40dp"
         android:height="40dp"></item>
 </layer-list>
