@@ -176,6 +176,7 @@ public class DetailSampahTerbooking extends AppCompatActivity {
         String statusSampahString = "Available";
         String idPengambil = "idPengambil0";
         mDatabase.child("DBSampah").child(ekey).child("statusSampah").setValue(statusSampahString);
+        mDatabase.child("DBSampah").child(ekey).child("notifyBook").setValue("1");
         mDatabase.child("DBSampah").child(ekey).child("idPengambil").setValue(idPengambil).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

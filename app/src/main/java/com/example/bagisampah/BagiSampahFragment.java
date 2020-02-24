@@ -366,6 +366,7 @@ public class BagiSampahFragment extends Fragment {
         dataMap.put("namaUser", namaUserString);
         dataMap.put("nomorTelepon", nomorTeleponString);
         dataMap.put("idPengambil", idPengambil);
+        dataMap.put("notifyBook", "0");
 
         mDatabase.child("DBSampah").push().setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

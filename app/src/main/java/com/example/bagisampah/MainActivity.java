@@ -2,12 +2,21 @@ package com.example.bagisampah;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +35,7 @@ import com.google.android.gms.common.util.CrashUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,10 +55,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    private FirebaseDatabase db;
     private static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     private int itemID;
     private ApplicationClass applicationClass;
-
+    private FirebaseAuth auth;
+    String CHANNEL_ID = "com.bagisamah.tesnotifikasi";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +73,127 @@ public class MainActivity extends AppCompatActivity {
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();
 
+        db = FirebaseDatabase.getInstance();
+        auth = FirebaseAuth.getInstance();
+
+//        db.getReference("DBSampah").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot sn : dataSnapshot.getChildren()){
+//                    if(sn.child("statusSampah").getValue(String.class).equalsIgnoreCase("Terbooking")&& sn.child("user").getValue(String.class).equalsIgnoreCase(auth.getCurrentUser().getUid())){
+//
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+        db.getReference("DBSampah").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //String uid = ds.child("UID").getValue(String.class);
+                for (DataSnapshot sn : dataSnapshot.getChildren()) {
+
+                    String uid = sn.child("user").getValue(String.class);
+                    if (auth.getCurrentUser().getUid().equalsIgnoreCase(uid)) {
+                        String notifyBook = sn.child("notifyBook").getValue(String.class);
+                        String status = sn.child("statusSampah").getValue(String.class);
+                        String key = sn.getKey();
+                        String namaSampah = sn.child("namaSampah").getValue(String.class);
+
+
+                        if(status.equalsIgnoreCase("Terbooking") && notifyBook.equalsIgnoreCase("1")){
+                            Intent intent = new Intent(MainActivity.this,MainActivity.class);
+                            intent.putExtra("fragmentToLoad",R.id.nav_sampah_saya);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
+                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                                    .setContentIntent(pendingIntent)
+                                    .setAutoCancel(true)
+                                    .setSmallIcon(R.drawable.ic_os_notification_fallback_white_24dp)
+                                    .setContentTitle("Sampah Diambil")
+                                    .setContentText("Sampah "+namaSampah+" telah dibooking")
+                                    .setLights(Color.RED, 1000, 300)
+                                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                                    .setVibrate(new long[]{100, 200, 300, 400, 500})
+                                    .setDefaults(Notification.DEFAULT_VIBRATE)
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                            NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                NotificationChannel channel = new NotificationChannel(
+                                        CHANNEL_ID, "Sampah Diambil", NotificationManager.IMPORTANCE_DEFAULT
+                                );
+                                channel.setDescription("Sampah "+namaSampah+" telah dibooking");
+                                channel.setShowBadge(true);
+                                channel.canShowBadge();
+                                channel.enableLights(true);
+                                channel.setLightColor(Color.RED);
+                                channel.enableVibration(true);
+                                channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500});
+                                notificationManager.createNotificationChannel(channel);
+                            }
+
+
+
+                            notificationManager.notify(1, mBuilder.build());
+                            if(notifyBook.equalsIgnoreCase("1")){
+                                notificationManager.notify(1, mBuilder.build());
+                                db.getReference("DBSampah").child(key).child("notifyBook")
+                                        .setValue("0");
+                            }
+                        }else if(status.equalsIgnoreCase("Available") && notifyBook.equalsIgnoreCase("1")){
+                            Intent intent = new Intent(MainActivity.this,MainActivity.class);
+                            intent.putExtra("fragmentToLoad",R.id.nav_sampah_saya);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
+                            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                                    .setContentIntent(pendingIntent)
+                                    .setAutoCancel(true)
+                                    .setSmallIcon(R.drawable.ic_os_notification_fallback_white_24dp)
+                                    .setContentTitle("Sampah Dibatalkan")
+                                    .setContentText("Sampah "+namaSampah+" tidak jadi diambil oleh pemesan")
+                                    .setLights(Color.RED, 1000, 300)
+                                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                                    .setVibrate(new long[]{100, 200, 300, 400, 500})
+                                    .setDefaults(Notification.DEFAULT_VIBRATE)
+                                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                            NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                NotificationChannel channel = new NotificationChannel(
+                                        CHANNEL_ID, "Sampah Dibatalkan", NotificationManager.IMPORTANCE_DEFAULT
+                                );
+                                channel.setDescription("Sampah "+namaSampah+" tidak jadi diambil oleh pemesan");
+                                channel.setShowBadge(true);
+                                channel.canShowBadge();
+                                channel.enableLights(true);
+                                channel.setLightColor(Color.RED);
+                                channel.enableVibration(true);
+                                channel.setVibrationPattern(new long[]{100, 200, 300, 400, 500});
+                                notificationManager.createNotificationChannel(channel);
+                            }
+
+
+
+                            notificationManager.notify(1, mBuilder.build());
+                            if(notifyBook.equalsIgnoreCase("1")){
+                                notificationManager.notify(1, mBuilder.build());
+                                db.getReference("DBSampah").child(key).child("notifyBook")
+                                        .setValue("0");
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
 

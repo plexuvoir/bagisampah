@@ -344,6 +344,7 @@ public class EditSampah extends AppCompatActivity {
         dataMap.put("user", userString);
         dataMap.put("alamatSampah", alamatSampahString);
         dataMap.put("idPengambil", idPengambil);
+        dataMap.put("notifyBook", "0");
         System.out.println(ekey);
         mDatabase.child("DBSampah").child(ekey).setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
