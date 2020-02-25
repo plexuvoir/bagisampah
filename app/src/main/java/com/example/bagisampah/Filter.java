@@ -110,7 +110,7 @@ public class Filter extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
-                Toast.makeText(Filter.this, jarakMaxString, Toast.LENGTH_SHORT).show();
+                
             }
         });
         seekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -133,7 +133,7 @@ public class Filter extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                Toast.makeText(Filter.this, hargaMaxString, Toast.LENGTH_SHORT).show();
+
             }
         });
 
