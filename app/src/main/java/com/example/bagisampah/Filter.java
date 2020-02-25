@@ -46,28 +46,51 @@ public class Filter extends AppCompatActivity {
         if (DataFilter.getFiltered()){
             seekBarDistance.setProgress(Integer.parseInt(DataFilter.getMaxJarak())-1);
             maxDistance.setText(DataFilter.getMaxJarak()+" KM");
-            seekBarPrice.setMax(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1);
+            if (hargaMaxString.length()>=4){
+                seekBarPrice.setMax(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1);
+            } else {
+                seekBarPrice.setMax(Integer.parseInt(hargaMaxString)+1);
+            }
             jarakMaxString = DataFilter.getMaxJarak();
             hargaMaxStringFinal=DataFilter.getMaxHarga();
 
             if (DataFilter.getMaxHarga().equals("0")){
                 checkBoxGratis.setChecked(true);
-                seekBarPrice.setMax(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1);
-                seekBarPrice.setProgress(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1);
-                maxPrice.setText("Rp "+(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1)+"000");
+                if (hargaMaxString.length()>=4){
+                    seekBarPrice.setMax(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1);
+                    seekBarPrice.setProgress(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1);
+                    maxPrice.setText("Rp "+(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1)+"000");
+                } else {
+                    seekBarPrice.setMax(Integer.parseInt(hargaMaxString)+1);
+                    seekBarPrice.setProgress(Integer.parseInt(hargaMaxString)+1);
+                    maxPrice.setText("Rp "+(Integer.parseInt(hargaMaxString)+1));
+                }
+
                 seekBarPrice.setEnabled(false);
                 textMinPrice.setTextColor(Color.parseColor("#9e9e9e"));
                 maxPrice.setTextColor(Color.parseColor("#9e9e9e"));
                 hargaMaxStringFinal = "0";
             }else {
-                seekBarPrice.setProgress(Integer.parseInt(DataFilter.getMaxHarga().substring(0, DataFilter.getMaxHarga().length()-3)));
-                maxPrice.setText("Rp "+(Integer.parseInt(DataFilter.getMaxHarga().substring(0, DataFilter.getMaxHarga().length()-3)))+"000");
+                if (DataFilter.getMaxHarga().length()>=4){
+                    seekBarPrice.setProgress(Integer.parseInt(DataFilter.getMaxHarga().substring(0, DataFilter.getMaxHarga().length()-3)));
+                    maxPrice.setText("Rp "+(Integer.parseInt(DataFilter.getMaxHarga().substring(0, DataFilter.getMaxHarga().length()-3)))+"000");
+                } else {
+                    seekBarPrice.setProgress(Integer.parseInt(DataFilter.getMaxHarga()));
+                    maxPrice.setText("Rp "+(Integer.parseInt(DataFilter.getMaxHarga())));
+                }
+
             }
 
         } else {
-            seekBarPrice.setMax(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1);
-            seekBarPrice.setProgress(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1);
-            maxPrice.setText("Rp "+(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1)+"000");
+            if (hargaMaxString.length()>=4){
+                seekBarPrice.setMax(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1);
+                seekBarPrice.setProgress(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1);
+                maxPrice.setText("Rp "+(Integer.parseInt(hargaMaxString.substring(0, hargaMaxString.length()-3))+1)+"000");
+            } else {
+                seekBarPrice.setMax(Integer.parseInt(hargaMaxString)+1);
+                seekBarPrice.setProgress(Integer.parseInt(hargaMaxString)+1);
+                maxPrice.setText("Rp "+(Integer.parseInt(hargaMaxString)+1));
+            }
         }
 
 
@@ -93,8 +116,13 @@ public class Filter extends AppCompatActivity {
         seekBarPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                maxPrice.setText("Rp "+(i+1)+"000");
-                hargaMaxString = i+1+"000";
+                if (hargaMaxString.length()>=4){
+                    maxPrice.setText("Rp "+(i+1)+"000");
+                    hargaMaxString = i+1+"000";
+                } else {
+                    maxPrice.setText("Rp "+(i+1));
+                    hargaMaxString = i+1+"";
+                }
                 hargaMaxStringFinal = hargaMaxString;
             }
 

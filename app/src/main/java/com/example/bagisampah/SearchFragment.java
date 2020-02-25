@@ -149,6 +149,8 @@ public class SearchFragment extends Fragment {
                     intent.putExtra("hargaMax", hargaMax);
                     startActivity(intent);
                     getActivity().finish();
+                } else {
+                    Toast.makeText(getContext(), "Memuat data, harap tunggu", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             default:

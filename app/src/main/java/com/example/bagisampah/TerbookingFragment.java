@@ -53,17 +53,7 @@ public class TerbookingFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         txtKosong = inflate.findViewById(R.id.txt_kosong);
         txtKosong.setVisibility(View.INVISIBLE);
-        final SwipeRefreshLayout pullToRefresh = inflate.findViewById(R.id.swipe_refresh);
-        pullToRefresh.setOnRefreshListener(() -> {
-            getData();
-            Toast.makeText(getContext(), "a", Toast.LENGTH_SHORT).show();
-            pullToRefresh.setRefreshing(false);
-        });
-
         getData();
-
-
-
         return inflate;
     }
 

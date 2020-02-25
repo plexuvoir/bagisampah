@@ -92,7 +92,7 @@ public class SampahAdapter extends RecyclerView.Adapter<SampahAdapter.ViewHolder
         }
         else {
             holder.harga.setBackgroundResource(R.drawable.bg_jarak_round);
-            holder.harga.setText("Rp."+listSampah.getHarga());
+            holder.harga.setText("Rp "+listSampah.getHarga());
             holder.jarak.setBackgroundResource(R.drawable.bg_jarak_round);
             Log.d(TAG, "GETJARAK: "+listSampah.getJarak());
             holder.jarak.setText(listSampah.getJarak()+" KM");
