@@ -19,14 +19,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResetPassword"></activity>
-        <activity android:name=".Filter" />
-        <activity android:name=".DetailSampahTerbooking" />
-        <activity android:name=".DetailSampahTerbookingSaya" />
-        <activity android:name=".EditSampah" />
+        <activity android:name=".View.Auth.ResetPassword"></activity>
+        <activity android:name=".View.FilterActivity" />
+        <activity android:name=".View.DetailSampah.DetailSampahTerbooking" />
+        <activity android:name=".View.DetailSampah.DetailSampahTerbookingSaya" />
+        <activity android:name=".View.EditSampah" />
         <activity
-            android:name=".DetailSampahSaya"
-            android:parentActivityName=".MainActivity" />
+            android:name=".View.DetailSampah.DetailSampahSaya"
+            android:parentActivityName=".View.MainActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -44,16 +44,16 @@
             android:required="false" />
 
         <activity
-            android:name=".MapsActivityBagi"
+            android:name=".View.MapsActivityBagi"
             android:label="Maps" />
         <activity
-            android:name=".DetailSampah"
-            android:parentActivityName=".MainActivity" />
+            android:name=".View.DetailSampah.DetailSampah"
+            android:parentActivityName=".View.MainActivity" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".View.Auth.SignUpActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".View.Auth.LoginActivity"
             android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,7 +61,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".View.MainActivity" />
     </application>
 
 </manifest>
