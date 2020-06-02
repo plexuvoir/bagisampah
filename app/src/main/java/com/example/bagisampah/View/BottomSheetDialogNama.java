@@ -32,6 +32,7 @@ public class BottomSheetDialogNama extends BottomSheetDialogFragment {
     private DatabaseReference mDatabase;
     private FirebaseAuth auth;
     EditText editNama;
+    String namaUser;
 
     @Nullable
     @Override
@@ -40,11 +41,12 @@ public class BottomSheetDialogNama extends BottomSheetDialogFragment {
         db = FirebaseDatabase.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
-
+        Bundle mArgs = getArguments();
+        namaUser = mArgs.getString("namaUser");
         TextView txtSimpan = v.findViewById(R.id.txt_simpan);
         TextView txtBatal = v.findViewById(R.id.txt_batal);
         editNama = v.findViewById(R.id.edit_nama);
-
+        editNama.setText(namaUser);
 
         txtSimpan.setOnClickListener(view -> {
 //            mListener.onButtonClicked("button 1 clicked");

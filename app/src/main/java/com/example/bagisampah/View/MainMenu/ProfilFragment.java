@@ -81,12 +81,18 @@ public class ProfilFragment extends Fragment {
         });
 
         btnEditNama.setOnClickListener(view -> {
+            Bundle args = new Bundle();
+            args.putString("namaUser", namaUserString);
             BottomSheetDialogNama bottomSheetDialogNama = new BottomSheetDialogNama();
+            bottomSheetDialogNama.setArguments(args);
             bottomSheetDialogNama.show(getActivity().getSupportFragmentManager(), "bottomSheet");
         });
 
         btnEditNomor.setOnClickListener(view -> {
+            Bundle args = new Bundle();
+            args.putString("nomorTelepon", nomorTeleponString);
             BottomSheetDialogNomor bottomSheetDialogNomor = new BottomSheetDialogNomor();
+            bottomSheetDialogNomor.setArguments(args);
             bottomSheetDialogNomor.show(getActivity().getSupportFragmentManager(), "bottomSheet");
         });
 

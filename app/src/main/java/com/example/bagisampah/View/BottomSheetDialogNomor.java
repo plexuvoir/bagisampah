@@ -30,6 +30,7 @@ public class BottomSheetDialogNomor extends BottomSheetDialogFragment {
     private DatabaseReference mDatabase;
     private FirebaseAuth auth;
     EditText editNomor;
+    String nomorTelepon;
 
     @Nullable
     @Override
@@ -38,12 +39,13 @@ public class BottomSheetDialogNomor extends BottomSheetDialogFragment {
         db = FirebaseDatabase.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         auth = FirebaseAuth.getInstance();
-
+        Bundle mArgs = getArguments();
+        nomorTelepon = mArgs.getString("nomorTelepon");
         TextView txtSimpan = v.findViewById(R.id.txt_simpan);
         TextView txtBatal = v.findViewById(R.id.txt_batal);
 
         editNomor = v.findViewById(R.id.edit_nomor);
-
+        editNomor.setText(nomorTelepon);
         txtSimpan.setOnClickListener(view -> {
 //            mListener.onButtonClicked("button 1 clicked");
             if (editNomor.getText().toString().equalsIgnoreCase("")){
