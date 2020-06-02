@@ -46,11 +46,16 @@ public class BottomSheetDialogNomor extends BottomSheetDialogFragment {
 
         txtSimpan.setOnClickListener(view -> {
 //            mListener.onButtonClicked("button 1 clicked");
-            if (editNomor.getText()!=null){
-                db.getReference("Users").child(auth.getCurrentUser().getUid()).child("nomorHP").setValue(editNomor.getText().toString());
+            if (editNomor.getText().toString().equalsIgnoreCase("")){
+                editNomor.setError("Tidak boleh kosong");
+            } else if (editNomor.getText().toString().matches("^\\s*$")){
+                editNomor.setError("Tidak boleh kosong");
+            } else {
+                if (editNomor.getText()!=null){
+                    db.getReference("Users").child(auth.getCurrentUser().getUid()).child("nomorHP").setValue(editNomor.getText().toString());
+                }
+                dismiss();
             }
-            dismiss();
-
         });
 
         txtBatal.setOnClickListener(view -> {

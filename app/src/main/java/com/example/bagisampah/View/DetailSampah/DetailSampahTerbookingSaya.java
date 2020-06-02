@@ -160,16 +160,13 @@ public class DetailSampahTerbookingSaya extends AppCompatActivity {
 
         btnWhatsapp.setOnClickListener(view -> {
             try {
-                String text = "Hai, Apakah sampah jadi diambil?";// Replace with your message.
+                String text = "Hai, Apakah sampah jadi diambil?";
                 if (nomorPengambilString.charAt(0)==0){
                     ekontakUserWithoutZero = nomorPengambilString.substring(1);
                 } else {
                     ekontakUserWithoutZero = nomorPengambilString;
                 }
-                String toNumber = "62"+ekontakUserWithoutZero; // Replace with mobile phone number without +Sign or leading zeros, but with country cod
-                //Suppose your country is India and your phone number is “xxxxxxxxxx”, then you need to send “91xxxxxxxxxx”.
-
-
+                String toNumber = "62"+ekontakUserWithoutZero;
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+text));
                 startActivity(intent);

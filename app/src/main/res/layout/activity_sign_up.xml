@@ -126,6 +126,7 @@
                 android:paddingHorizontal="40dp">
                 <EditText
                     android:hint="Nomor WA"
+                    android:digits="0123456789"
                     android:gravity="left|center"
                     android:background="@drawable/round_edit"
                     android:id="@+id/edit_nomor"

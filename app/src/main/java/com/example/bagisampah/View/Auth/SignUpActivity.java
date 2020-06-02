@@ -45,10 +45,28 @@ public class SignUpActivity extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+
+
         daftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (edit_password.getText().toString().equals(edit_confirm_password.getText().toString())){
+                if (edit_nama.getText().toString().equalsIgnoreCase("")) {
+                    edit_nama.setError("Tidak boleh kosong");
+                } else if (edit_nama.getText().toString().matches("^\\s*$")){
+                    edit_nama.setError("Tidak boleh kosong");
+                } else if (edit_email.getText().toString().equalsIgnoreCase("")) {
+                    edit_email.setError("Tidak boleh kosong");
+                }  else if (!isEmailValid(edit_email.getText().toString())){
+                    edit_email.setError("Email tidak valid");
+                } else if (edit_password.getText().toString().equalsIgnoreCase("")) {
+                    edit_password.setError("Tidak boleh kosong");
+                } else if (edit_confirm_password.getText().toString().equalsIgnoreCase("")) {
+                    edit_confirm_password.setError("Tidak boleh kosong");
+                } else if (edit_no_hp.getText().toString().equalsIgnoreCase("")) {
+                    edit_no_hp.setError("Tidak boleh kosong");
+                } else if (!edit_password.getText().toString().equals(edit_confirm_password.getText().toString())) {
+                    edit_confirm_password.setError("Password tidak cocok");
+                } else {
                     String emailString = edit_email.getText().toString().trim();
                     String passwordString = edit_password.getText().toString().trim();
                     auth.createUserWithEmailAndPassword(emailString, passwordString).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
@@ -80,11 +98,11 @@ public class SignUpActivity extends AppCompatActivity {
                             }
                         }
                     });
-                } else {
-
                 }
-
             }
         });
+    }
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }

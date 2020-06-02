@@ -162,10 +162,7 @@ public class FilterActivity extends AppCompatActivity {
             DataFilter.setMaxHarga(hargaMaxStringFinal);
             DataFilter.setFiltered(true);
             Log.d("maxHarga", "onCreate: "+DataFilter.getMaxHarga());
-            Intent intent = new Intent(FilterActivity.this, MainActivity.class);
-//            intent.putExtra("hargaMax", hargaMaxString);
-//            intent.putExtra("distanceMax", jarakMaxString);
-           //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            Intent intent = new Intent(FilterActivity.this, MainActivity.class);//
             startActivity(intent);
             finish();
 

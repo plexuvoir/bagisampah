@@ -16,7 +16,9 @@
         android:id="@+id/edit_nomor"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:inputType="phone"
         android:textSize="24sp"
+        android:digits="0123456789"
         android:textColor="#212121"
         android:backgroundTint="#00B0FF"
 

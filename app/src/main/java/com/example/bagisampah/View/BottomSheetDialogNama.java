@@ -48,11 +48,19 @@ public class BottomSheetDialogNama extends BottomSheetDialogFragment {
 
         txtSimpan.setOnClickListener(view -> {
 //            mListener.onButtonClicked("button 1 clicked");
-            if (editNama.getText()!=null){
-                db.getReference("Users").child(auth.getCurrentUser().getUid()).child("nama").setValue(editNama.getText().toString());
+            if (editNama.getText().toString().equalsIgnoreCase("")){
+                editNama.setError("Tidak boleh kosong");
+            } else if (editNama.getText().toString().matches("^\\s*$")){
+                editNama.setError("Tidak boleh kosong");
+            } else {
+                if (editNama.getText()!=null){
+                    db.getReference("Users").child(auth.getCurrentUser().getUid()).child("nama").setValue(editNama.getText().toString());
 
+                }
+                dismiss();
             }
-            dismiss();
+
+
 
         });
 
